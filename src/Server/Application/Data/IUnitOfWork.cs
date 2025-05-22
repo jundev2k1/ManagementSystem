@@ -1,17 +1,12 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using System.Data;
-using System.Data.Common;
-
 namespace Application.Data;
 
-public interface IUnitOfWork
+public interface IUnitOfWork : IDisposable
 {
-	IDbConnection Connection { get; }
-	IDbTransaction? Transaction { get; }
+	Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+	Task CommitAsync(CancellationToken cancellationToken = default);
+	Task RollbackAsync(CancellationToken cancellationToken = default);
 
-	void BeginTransaction();
-	void Commit();
-	void Rollback();
-	void Dispose();
+	Task<int> SaveAsync(CancellationToken cancellationToken = default);
 }

@@ -1,56 +1,41 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using Application.Data;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
-using System.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infrastructure.Data;
 
-public sealed class UnitOfWork : IUnitOfWork
+public sealed class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
 {
-	private readonly IDbConnection _connection;
-	private IDbTransaction? _transaction;
+	private IDbContextTransaction? _transaction;
 
-	public UnitOfWork(IConfiguration configuration)
+	public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
 	{
-		var connectionString = configuration.GetConnectionString("DefaultConnection");
-		_connection = new NpgsqlConnection(connectionString);
-		_connection.Open();
+		_transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
 	}
 
-	public void BeginTransaction()
+	public async Task CommitAsync(CancellationToken cancellationToken = default)
 	{
-		if (_transaction == null)
-			_transaction = _connection.BeginTransaction();
+		if (_transaction is null) return;
+
+		await _transaction.CommitAsync(cancellationToken);
+		await _transaction.DisposeAsync();
 	}
 
-	public void Commit()
+	public async Task RollbackAsync(CancellationToken cancellationToken = default)
 	{
-		if (_transaction != null)
-		{
-			_transaction.Commit();
-			_transaction.Dispose();
-			_transaction = null;
-		}
+		if (_transaction is null) return;
+
+		await _transaction.RollbackAsync(cancellationToken);
+		await _transaction.DisposeAsync();
 	}
 
-	public void Rollback()
+	public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
 	{
-		if (_transaction != null)
-		{
-			_transaction.Rollback();
-			_transaction.Dispose();
-			_transaction = null;
-		}
+		return await dbContext.SaveChangesAsync(cancellationToken);
 	}
 
 	public void Dispose()
 	{
-		_transaction?.Dispose();
-		_connection?.Dispose();
+		dbContext.Dispose();
 	}
-
-	public IDbConnection Connection => _connection;
-	public IDbTransaction? Transaction => _transaction;
 }
