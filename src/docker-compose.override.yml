@@ -1,0 +1,26 @@
+services:
+  applicationdb:
+    container_name: applicationdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=applicationdb
+    restart: always
+    ports:
+      - "4100:5432"
+    volumes:
+      - postgres_applicationdb:/var/lib/postgresql/data/
+
+  webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+      - "4000:8080"
+      - "4001:8081"
+    depends_on:
+      - applicationdb
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
