@@ -3,6 +3,7 @@
 using WebAPI;
 using Infrastructure;
 using Application;
+using Infrastructure.Data.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,5 +17,12 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseWebApi();
+
+// Run migration
+using (var scope = app.Services.CreateScope())
+{
+    var dbInitialize = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    await dbInitialize.InitialiseDatabaseAsync();
+}
 
 app.Run();

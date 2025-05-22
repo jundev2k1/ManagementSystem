@@ -15,10 +15,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=applicationdb;Port=5432;Database=applicationdb;User Id=postgres;Password=postgres;Include Error Detail=true
     ports:
       - "4000:8080"
-      - "4001:8081"
     depends_on:
       - applicationdb
     volumes:

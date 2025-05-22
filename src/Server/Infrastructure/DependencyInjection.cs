@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
 using Infrastructure.Data;
+using Infrastructure.Data.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ public static class DependencyInjection
 	public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 	{
 		services.AddDbConnection(configuration);
+		services.AddScoped<DatabaseInitializer>();
 		services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 		return services;
@@ -21,7 +23,9 @@ public static class DependencyInjection
 		services.AddDbContext<ApplicationDbContext>(options =>
 		{
 			var connectionString = configuration.GetConnectionString("DefaultConnection");
-			options.UseNpgsql(connectionString);
+			options
+				.UseNpgsql(connectionString, o => o.MigrationsHistoryTable("__ef_migrations_history"))
+				.UseSnakeCaseNamingConvention();
 		});
 
 		return services;

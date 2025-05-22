@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Infrastructure.Data.Extensions;
+
 namespace WebAPI;
 
 public static class DependencyInjection
@@ -18,8 +20,6 @@ public static class DependencyInjection
 		{
 			app.MapOpenApi();
 		}
-
-		app.UseHttpsRedirection();
 
 		return app;
 	}
