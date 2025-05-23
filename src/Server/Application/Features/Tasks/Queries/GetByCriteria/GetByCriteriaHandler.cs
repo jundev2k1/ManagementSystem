@@ -7,6 +7,7 @@ namespace Application.Features.Tasks.Queries.GetByCriteria;
 public sealed class GetByCriteriaHandler : IQueryHandler<GetByCriteriaQuery, PaginationResult<TaskInfo>>
 {
 	private readonly IUnitOfWork _unitOfWork;
+
 	public GetByCriteriaHandler(IUnitOfWork unitOfWork)
 	{
 		_unitOfWork = unitOfWork;

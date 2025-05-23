@@ -5,6 +5,7 @@ namespace Application.Features.Tasks.Commands.UpdateTask;
 public sealed class UpdateTaskHandler : ICommandHandler<UpdateTaskCommand>
 {
 	private readonly IUnitOfWork _unitOfWork;
+
 	public UpdateTaskHandler(IUnitOfWork unitOfWork)
 	{
 		_unitOfWork = unitOfWork;
@@ -12,6 +13,9 @@ public sealed class UpdateTaskHandler : ICommandHandler<UpdateTaskCommand>
 
 	public async Task<Unit> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
 	{
-		return await Task.FromResult(Unit.Value);
+		await _unitOfWork.Tasks.UpdateTaskAsync(request.Task, cancellationToken);
+		await _unitOfWork.SaveAsync(cancellationToken);
+
+		return Unit.Value;
 	}
 }

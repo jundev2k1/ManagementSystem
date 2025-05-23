@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Interfaces.Repositories;
+
 namespace Application.Data;
 
 public interface IUnitOfWork : IDisposable
@@ -9,4 +11,6 @@ public interface IUnitOfWork : IDisposable
 	Task RollbackAsync(CancellationToken cancellationToken = default);
 
 	Task<int> SaveAsync(CancellationToken cancellationToken = default);
+
+	ITaskRepository Tasks { get; }
 }

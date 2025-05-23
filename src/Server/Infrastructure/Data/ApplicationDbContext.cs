@@ -21,4 +21,7 @@ public sealed class ApplicationDbContext : DbContext
 	public DbSet<Role> Roles { get; set; }
 	public DbSet<RolePermission> RolePermissions { get; set; }
 	public DbSet<Permission> Permissions { get; set; }
+
+	// Entities related to task management
+	public DbSet<TaskInfo> Tasks { get; set; }
 }

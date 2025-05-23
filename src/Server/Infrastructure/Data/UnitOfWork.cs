@@ -1,16 +1,26 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infrastructure.Data;
 
-public sealed class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
+public sealed class UnitOfWork : IUnitOfWork
 {
+	private ApplicationDbContext _dbContext;
 	private IDbContextTransaction? _transaction;
+	public UnitOfWork(
+		ApplicationDbContext dbContext,
+		ITaskRepository taskRepository)
+	{
+		_dbContext = dbContext;
+		this.Tasks = taskRepository;
+	}
+
 
 	public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
 	{
-		_transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
+		_transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
 	}
 
 	public async Task CommitAsync(CancellationToken cancellationToken = default)
@@ -31,11 +41,13 @@ public sealed class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
 
 	public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
 	{
-		return await dbContext.SaveChangesAsync(cancellationToken);
+		return await _dbContext.SaveChangesAsync(cancellationToken);
 	}
 
 	public void Dispose()
 	{
-		dbContext.Dispose();
+		_dbContext.Dispose();
 	}
+
+	public ITaskRepository Tasks { get; }
 }

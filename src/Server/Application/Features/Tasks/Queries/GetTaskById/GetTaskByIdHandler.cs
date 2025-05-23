@@ -4,22 +4,18 @@ namespace Application.Features.Tasks.Queries.GetTaskById;
 
 public sealed class GetTaskByIdHandler : IQueryHandler<GetTaskByIdQuery, TaskInfo>
 {
-	public GetTaskByIdHandler()
+	private readonly IUnitOfWork _unitOfWork;
+
+	public GetTaskByIdHandler(IUnitOfWork unitOfWork)
 	{
+		_unitOfWork = unitOfWork;
 	}
 
 	public async Task<TaskInfo> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
 	{
-		// Simulate fetching task info from a database or other source
-		var taskInfo = new TaskInfo
-		{
-			TaskId = request.TaskId,
-			Title = "Sample Task",
-			Description = "This is a sample task description.",
-			Status = TaskStatusEnum.InProgress,
-			CreatedAt = DateTime.UtcNow,
-			CreatedBy = "admin"
-		};
-		return await Task.FromResult(taskInfo);
+		var targetTask = await _unitOfWork.Tasks.GetTaskByIdAsync(request.TaskId, cancellationToken);
+		if (targetTask is null) throw new NotFoundException("Task", request.TaskId);
+
+		return targetTask;
 	}
 }
