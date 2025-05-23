@@ -8,6 +8,4 @@ public sealed class RolePermission : Entity
 {
 	public Guid RoleId { get; set; }
 	public Guid PermissionId { get; set; }
-	public DateTime? GrantedAt { get; set; }
-	public string GrantedBy { get; set; } = string.Empty;
 }

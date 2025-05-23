@@ -20,13 +20,6 @@ public sealed class RolePermissionConfiguration : IEntityTypeConfiguration<RoleP
 			.IsRequired();
 		builder.Property(rp => rp.PermissionId)
 			.IsRequired();
-		builder.Property(rp => rp.GrantedAt)
-			.IsRequired()
-			.HasDefaultValueSql("CURRENT_TIMESTAMP");
-		builder.Property(rp => rp.GrantedBy)
-			.IsRequired()
-			.HasMaxLength(60)
-			.HasDefaultValue(string.Empty);
 		builder.Property(rp => rp.CreatedAt)
 			.IsRequired()
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
