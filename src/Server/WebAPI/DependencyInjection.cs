@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using Infrastructure.Data.Extensions;
-
 namespace WebAPI;
 
 public static class DependencyInjection
@@ -10,6 +8,9 @@ public static class DependencyInjection
 	{
 		services.AddOpenApi();
 		services.AddEndpointsApiExplorer();
+		services.AddSwaggerGen();
+
+		services.AddCarter();
 
 		return services;
 	}
@@ -19,7 +20,10 @@ public static class DependencyInjection
 		if (app.Environment.IsDevelopment())
 		{
 			app.MapOpenApi();
+			app.UseSwagger();
+			app.UseSwaggerUI();
 		}
+		app.MapCarter();
 
 		return app;
 	}
