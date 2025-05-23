@@ -22,7 +22,7 @@ public sealed class CreateTask : ICarterModule
 			var result = await sender.Send(new CreateTaskCommand(request), cancellationToken);
 			logger.LogInformation("Response:  => " + JsonSerializer.Serialize(result));
 
-			return new CreateTaskResult(result);
+			return ApiResponse<CreateTaskResult>.Ok(new CreateTaskResult(result));
 		});
 	}
 }

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Abstractions.Pagination;
 using Application.Features.Tasks.Queries.GetByCriteria;
 using WebAPI.Dtos;
 
@@ -23,7 +24,7 @@ public sealed class GetTaskByCriteria : ICarterModule
 			var result = await sender.Send(query, cancellationToken);
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
-			return result;
+			return ApiResponse<PaginationResult<TaskInfo>>.Ok(result);
 		});
 	}
 }

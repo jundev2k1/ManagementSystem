@@ -19,7 +19,7 @@ public sealed class DeleteTask : ICarterModule
 			var result = await sender.Send(new DeleteTaskCommand(taskId), cancellationToken);
 			logger.LogInformation("Response:  => " + JsonSerializer.Serialize(result));
 
-			return Results.Ok();
+			return ApiResponse<object?>.Ok();
 		});
 	}
 }

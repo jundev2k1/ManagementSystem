@@ -18,7 +18,7 @@ public sealed class UpdateTask : ICarterModule
 			if (request.TaskId != taskId)
 			{
 				logger.LogError("Task ID in the request does not match the Task ID in the URL.");
-				return Results.BadRequest("Task ID mismatch.");
+				throw new BadRequestException("Task ID mismatch.");
 			}
 
 			logger.LogInformation("Endpoint => Creating task: {TaskId}", request.TaskId);
@@ -27,7 +27,7 @@ public sealed class UpdateTask : ICarterModule
 			var result = await sender.Send(new UpdateTaskCommand(request), cancellationToken);
 			logger.LogInformation("Response:  => " + JsonSerializer.Serialize(result));
 
-			return Results.Ok();
+			return ApiResponse<object?>.Ok();
 		});
 	}
 }
