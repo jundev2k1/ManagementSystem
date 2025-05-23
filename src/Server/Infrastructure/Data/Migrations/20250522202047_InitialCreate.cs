@@ -55,11 +55,12 @@ namespace Infrastructure.Data.Migrations
                 name: "user");
 
             migrationBuilder.DropIndex(
-                name: "ix_user_email");
+                name: "ix_user_email",
+                table: "user");
 
             migrationBuilder.DropIndex(
-                name: "ix_user_username");
-
+                name: "ix_user_username",
+                table: "user");
 		}
     }
 }

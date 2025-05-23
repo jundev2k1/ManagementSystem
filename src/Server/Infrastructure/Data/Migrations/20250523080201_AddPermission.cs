@@ -61,16 +61,20 @@ namespace Infrastructure.Data.Migrations
                 name: "permission");
 
 			migrationBuilder.DropIndex(
-				name: "ix_permission_action");
+				name: "ix_permission_action",
+                table: "permission");
 
 			migrationBuilder.DropIndex(
-				name: "ix_permission_category");
+				name: "ix_permission_category",
+                table: "permission");
 
 			migrationBuilder.DropIndex(
-				name: "ix_permission_permission_name");
+				name: "ix_permission_permission_name",
+                table: "permission");
 
 			migrationBuilder.DropIndex(
-				name: "ix_permission_validflg");
+				name: "ix_permission_validflg",
+                table: "permission");
 		}
     }
 }

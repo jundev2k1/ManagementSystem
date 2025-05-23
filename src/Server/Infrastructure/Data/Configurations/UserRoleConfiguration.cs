@@ -46,6 +46,6 @@ public sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
 	private void ConfigureIndexes(EntityTypeBuilder<UserRole> builder)
 	{
 		builder.HasIndex(ur => new { ur.UserId, ur.RoleId })
-			.HasDatabaseName("ix_userrole_userid_roleid"); ;
+			.HasDatabaseName("ix_userrole_userid_roleid");
 	}
 }

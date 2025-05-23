@@ -42,7 +42,8 @@ namespace Infrastructure.Data.Migrations
                 name: "role_permission");
 
 			migrationBuilder.DropIndex(
-				name: "ix_rolepermission_roleid_permissionid");
+				name: "ix_rolepermission_roleid_permissionid",
+                table: "role_permission");
 		}
     }
 }

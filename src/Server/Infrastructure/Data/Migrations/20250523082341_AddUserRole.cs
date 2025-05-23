@@ -42,7 +42,8 @@ namespace Infrastructure.Data.Migrations
                 name: "user_role");
 
 			migrationBuilder.DropIndex(
-				name: "ix_userrole_userid_roleid");
+				name: "ix_userrole_userid_roleid",
+                table: "user_role");
 		}
     }
 }

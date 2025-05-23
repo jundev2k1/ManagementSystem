@@ -39,6 +39,6 @@ public sealed class RolePermissionConfiguration : IEntityTypeConfiguration<RoleP
 	private void ConfigureIndexes(EntityTypeBuilder<RolePermission> builder)
 	{
 		builder.HasIndex(ur => new { ur.RoleId, ur.PermissionId })
-			.HasDatabaseName("ix_rolepermission_roleid_permissionid"); ;
+			.HasDatabaseName("ix_rolepermission_roleid_permissionid");
 	}
 }
