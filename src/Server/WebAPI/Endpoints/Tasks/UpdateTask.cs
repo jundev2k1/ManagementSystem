@@ -10,7 +10,7 @@ public sealed class UpdateTask : ICarterModule
 	{
 		app.MapPut("/tasks/{taskId:guid}", async (
 			[FromRoute] Guid taskId,
-			[FromForm] TaskInfo request,
+			TaskInfo request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<CreateTask> logger,
 			CancellationToken cancellationToken) =>
@@ -21,11 +21,8 @@ public sealed class UpdateTask : ICarterModule
 				throw new BadRequestException("Task ID mismatch.");
 			}
 
-			logger.LogInformation("Endpoint => Creating task: {TaskId}", request.TaskId);
-			logger.LogInformation("Request:  => " + JsonSerializer.Serialize(request));
-
 			var result = await sender.Send(new UpdateTaskCommand(request), cancellationToken);
-			logger.LogInformation("Response:  => " + JsonSerializer.Serialize(result));
+			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
 		});

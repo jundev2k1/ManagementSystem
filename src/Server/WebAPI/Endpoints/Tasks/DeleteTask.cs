@@ -14,10 +14,8 @@ public sealed class DeleteTask : ICarterModule
 			[FromServices] ILogger<CreateTask> logger,
 			CancellationToken cancellationToken) =>
 		{
-			logger.LogInformation("Endpoint => Creating task: {TaskId}", taskId);
-
 			var result = await sender.Send(new DeleteTaskCommand(taskId), cancellationToken);
-			logger.LogInformation("Response:  => " + JsonSerializer.Serialize(result));
+			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
 		});

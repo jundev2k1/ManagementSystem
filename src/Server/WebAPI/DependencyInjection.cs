@@ -35,6 +35,7 @@ public static class DependencyInjection
 	public static WebApplication UseMiddleware(this WebApplication app)
 	{
 		app.UseMiddleware<ErrorHandlingMiddleware>();
+		app.UseMiddleware<RequestLoggingMiddleware>();
 
 		return app;
 	}

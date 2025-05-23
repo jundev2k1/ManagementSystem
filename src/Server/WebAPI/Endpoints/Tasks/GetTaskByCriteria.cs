@@ -16,11 +16,7 @@ public sealed class GetTaskByCriteria : ICarterModule
 			[FromServices] ILogger<GetTaskByCriteria> logger,
 			CancellationToken cancellationToken) =>
 		{
-			logger.LogInformation("Endpoint => Get task by criteria");
-
 			var query = parameters.Adapt<GetByCriteriaQuery>();
-			logger.LogInformation("Request: " + JsonSerializer.Serialize(query));
-
 			var result = await sender.Send(query, cancellationToken);
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 

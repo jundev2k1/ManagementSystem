@@ -14,8 +14,6 @@ public sealed class GetTaskById : ICarterModule
 			[FromServices] ILogger<GetTaskById> logger,
 			CancellationToken cancellationToken) =>
 		{
-			logger.LogInformation("Endpoint => Get task by id: {taskId}", taskId);
-
 			var result = await sender.Send(new GetTaskByIdQuery(taskId), cancellationToken);
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
