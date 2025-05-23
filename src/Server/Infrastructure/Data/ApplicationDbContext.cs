@@ -18,4 +18,5 @@ public sealed class ApplicationDbContext : DbContext
 	// Entities related to user authentication and authorization
 	public DbSet<User> Users { get; set; }
 	public DbSet<Role> Roles { get; set; }
+	public DbSet<Permission> Permissions { get; set; }
 }
