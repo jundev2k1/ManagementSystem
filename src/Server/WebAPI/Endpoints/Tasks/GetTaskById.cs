@@ -2,7 +2,7 @@
 
 namespace WebAPI.Endpoints;
 
-public sealed class GetTask : ICarterModule
+public sealed class GetTaskById : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{

@@ -1,10 +1,8 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using Microsoft.Extensions.Logging;
-
 namespace Infrastructure.Data.Extensions;
 
-public sealed class DatabaseInitializer(ApplicationDbContext dbContext, ILogger<DatabaseInitializer> logger)
+public sealed class DatabaseInitializer(ApplicationDbContext dbContext)
 {
 	public async Task InitialiseDatabaseAsync()
 	{
