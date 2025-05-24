@@ -46,6 +46,7 @@ public sealed class ErrorHandlingMiddleware
 			ForbiddenAccessException => (int)HttpStatusCode.Forbidden, // 403
 			NotFoundException => (int)HttpStatusCode.NotFound, // 404
 			InvalidOperationException => (int)HttpStatusCode.InternalServerError, // 500
+			NotSupportedException => (int)HttpStatusCode.NotImplemented, // 501
 			_ => (int)HttpStatusCode.InternalServerError // 500
 		};
 

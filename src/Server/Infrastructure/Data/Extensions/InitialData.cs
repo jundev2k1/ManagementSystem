@@ -1,5 +1,4 @@
-﻿
-// Copyright(c) 2025 - Jun Dev.All rights reserved
+﻿// Copyright(c) 2025 - Jun Dev.All rights reserved
 
 namespace Infrastructure.Data.Extensions;
 

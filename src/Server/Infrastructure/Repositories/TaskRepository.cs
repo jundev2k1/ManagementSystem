@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Abstractions.Pagination;
 using Application.Common.Interfaces.Repositories;
 using Infrastructure.Data;
 
@@ -7,6 +8,30 @@ namespace Infrastructure.Repositories;
 
 public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskRepository
 {
+	public async Task<PaginationResult<TaskInfo>> GetTasksByCriteriaAsync(
+		Func<IQueryable<TaskInfo>, IQueryable<TaskInfo>>? queryBuilder = null,
+		int page = 1,
+		int pageSize = 20,
+		CancellationToken cancellationToken = default)
+	{
+		var query = dbContext.Tasks.AsQueryable();
+
+		if (queryBuilder is not null)
+			query = queryBuilder(query);
+
+		var totalCount = await query.CountAsync(cancellationToken);
+		var items = await query
+			.Skip((page - 1) * pageSize)
+			.Take(pageSize)
+			.ToListAsync(cancellationToken);
+
+		return new PaginationResult<TaskInfo>(
+			items: items,
+			totalItems: totalCount,
+			totalPages: (int)Math.Ceiling((decimal)totalCount / pageSize),
+			pageIndex: page,
+			pageSize: pageSize);
+	}
 	public async Task<TaskInfo?> GetTaskByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var targetTask = await dbContext.Tasks
@@ -15,10 +40,6 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskReposi
 		return targetTask;
 	}
 
-	public async Task<IEnumerable<TaskInfo>> GetTasksByCriteria(CancellationToken cancellationToken = default)
-	{
-		return await Task.FromResult(Array.Empty<TaskInfo>());
-	}
 
 	public async Task<Guid> CreateNewTaskAsync(TaskInfo task, CancellationToken cancellationToken = default)
 	{
