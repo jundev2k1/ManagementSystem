@@ -20,6 +20,12 @@ public sealed class ErrorHandlingMiddleware
 		try
 		{
 			await _next(context);
+
+			if (context.Response.StatusCode == 401)
+				throw new UnauthorizedAccessException("Unauthorized request");
+
+			if (context.Response.StatusCode == 403)
+				throw new ForbiddenAccessException();
 		}
 		catch (Exception ex)
 		{

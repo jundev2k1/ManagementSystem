@@ -10,7 +10,7 @@ public sealed class CreateTask : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapPost("/tasks", async (
+		app.MapPost("/tasks", [Authorize] async (
 			TaskInfo request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<CreateTask> logger,

@@ -13,4 +13,5 @@ public interface IUnitOfWork : IDisposable
 	Task<int> SaveAsync(CancellationToken cancellationToken = default);
 
 	ITaskRepository Tasks { get; }
+	IUserRepository Users { get; }
 }

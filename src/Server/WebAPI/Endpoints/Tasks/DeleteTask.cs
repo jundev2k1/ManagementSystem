@@ -18,6 +18,6 @@ public sealed class DeleteTask : ICarterModule
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
-		});
+		}).RequireAuthorization();
 	}
 }

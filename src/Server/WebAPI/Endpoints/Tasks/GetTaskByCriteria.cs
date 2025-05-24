@@ -29,6 +29,6 @@ public sealed class GetTaskByCriteria : ICarterModule
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<PaginationResult<TaskInfo>>.Ok(result);
-		});
+		}).RequireAuthorization();
 	}
 }

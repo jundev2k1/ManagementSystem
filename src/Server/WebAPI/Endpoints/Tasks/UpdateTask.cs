@@ -25,6 +25,6 @@ public sealed class UpdateTask : ICarterModule
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
-		});
+		}).RequireAuthorization();
 	}
 }

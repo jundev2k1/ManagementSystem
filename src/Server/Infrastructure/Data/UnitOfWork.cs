@@ -11,10 +11,12 @@ public sealed class UnitOfWork : IUnitOfWork
 	private IDbContextTransaction? _transaction;
 	public UnitOfWork(
 		ApplicationDbContext dbContext,
-		ITaskRepository taskRepository)
+		ITaskRepository taskRepository,
+		IUserRepository users)
 	{
 		_dbContext = dbContext;
-		this.Tasks = taskRepository;
+		Tasks = taskRepository;
+		Users = users;
 	}
 
 
@@ -50,4 +52,5 @@ public sealed class UnitOfWork : IUnitOfWork
 	}
 
 	public ITaskRepository Tasks { get; }
+	public IUserRepository Users { get; }
 }

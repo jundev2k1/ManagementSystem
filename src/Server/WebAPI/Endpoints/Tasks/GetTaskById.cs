@@ -18,6 +18,6 @@ public sealed class GetTaskById : ICarterModule
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<TaskInfo>.Ok(result);
-		});
+		}).RequireAuthorization();
 	}
 }
