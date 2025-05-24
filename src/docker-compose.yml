@@ -10,6 +10,12 @@ services:
       context: .
       dockerfile: Server/WebAPI/Dockerfile
 
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    build:
+      context: ./Client/my-app
+      dockerfile: Dockerfile
+
 volumes:
   postgres_applicationdb:
   
