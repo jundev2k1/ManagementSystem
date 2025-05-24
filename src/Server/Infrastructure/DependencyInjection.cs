@@ -7,6 +7,7 @@ using Infrastructure.Data;
 using Infrastructure.Data.Extensions;
 using Infrastructure.Repositories;
 using Infrastructure.Security;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ public static class DependencyInjection
 	{
 		services.AddDbConnection(configuration);
 		services.AddRepositories();
+		services.AddServices();
 		services.AddJwtAuthentication(configuration);
 		services.AddSecurity();
 
@@ -52,6 +54,13 @@ public static class DependencyInjection
 		return services;
 	}
 
+	private static IServiceCollection AddServices(this IServiceCollection services)
+	{
+		services.AddScoped<ICurrentUser, CurrentUser>();
+
+		return services;
+	}
+
 	private static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
 	{
 		var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>()!;
@@ -78,19 +87,6 @@ public static class DependencyInjection
 					IssuerSigningKey = new SymmetricSecurityKey(
 						Encoding.UTF8.GetBytes(jwtSettings.SecretKey!))
 				};
-				//option.Events = new JwtBearerEvents
-				//{
-				//	OnAuthenticationFailed = context =>
-				//	{
-				//		context.Response.StatusCode = 401; // Unauthorized
-				//		return Task.CompletedTask;
-				//	},
-				//	OnChallenge = context =>
-				//	{
-				//		context.Response.StatusCode = 401; // Unauthorized
-				//		return Task.CompletedTask;
-				//	}
-				//};
 			});
 		services.AddAuthorization();
 
@@ -100,6 +96,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddSecurity(this IServiceCollection services)
 	{
 		services.AddScoped<IPasswordHasher, PasswordHasherService>();
+
 		return services;
 	}
 }
