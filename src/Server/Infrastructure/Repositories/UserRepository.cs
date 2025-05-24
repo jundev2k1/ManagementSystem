@@ -15,11 +15,11 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 		return targetTask;
 	}
 
-	public async Task<User?> GetUserByUsernameAsync(string username, CancellationToken cancellationToken = default)
+	public async Task<User?> GetUserByUserNameAsync(string userName, CancellationToken cancellationToken = default)
 	{
 		var targetTask = await dbContext.Users
 			.AsNoTracking()
-			.FirstOrDefaultAsync(t => t.UserName == username, cancellationToken);
+			.FirstOrDefaultAsync(t => t.UserName == userName, cancellationToken);
 		return targetTask;
 	}
 

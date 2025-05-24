@@ -8,7 +8,7 @@ public sealed class LoginValidator : AbstractValidator<LoginCommand>
 {
 	public LoginValidator()
 	{
-		RuleFor(x => x.Username)
+		RuleFor(x => x.UserName)
 			.NotEmpty().WithMessage("Username is required.");
 
 		RuleFor(x => x.Password)

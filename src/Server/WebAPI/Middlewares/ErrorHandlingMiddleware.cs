@@ -29,6 +29,8 @@ public sealed class ErrorHandlingMiddleware
 		}
 		catch (Exception ex)
 		{
+			if (context.Response.HasStarted) throw;
+
 			await HandleExceptionAsync(context, ex);
 
 			if (ex is ValidationException exception)

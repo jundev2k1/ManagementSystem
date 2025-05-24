@@ -3,7 +3,6 @@
 using Application.Common.Abstractions.Pagination;
 using Application.Common.Mapping;
 using Application.Features.Tasks.Queries.GetByCriteria;
-using WebAPI.Dtos;
 
 namespace WebAPI.Endpoints;
 

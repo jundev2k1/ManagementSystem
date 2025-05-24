@@ -74,22 +74,23 @@ public static class DependencyInjection
 					ValidateIssuerSigningKey = true,
 					ValidIssuer = jwtSettings.Issuer,
 					ValidAudience = jwtSettings.Audience,
+					ClockSkew = TimeSpan.Zero,
 					IssuerSigningKey = new SymmetricSecurityKey(
 						Encoding.UTF8.GetBytes(jwtSettings.SecretKey!))
 				};
-				option.Events = new JwtBearerEvents
-				{
-					OnAuthenticationFailed = context =>
-					{
-						context.Response.StatusCode = 401; // Unauthorized
-						return Task.CompletedTask;
-					},
-					OnChallenge = context =>
-					{
-						context.Response.StatusCode = 401; // Unauthorized
-						return Task.CompletedTask;
-					}
-				};
+				//option.Events = new JwtBearerEvents
+				//{
+				//	OnAuthenticationFailed = context =>
+				//	{
+				//		context.Response.StatusCode = 401; // Unauthorized
+				//		return Task.CompletedTask;
+				//	},
+				//	OnChallenge = context =>
+				//	{
+				//		context.Response.StatusCode = 401; // Unauthorized
+				//		return Task.CompletedTask;
+				//	}
+				//};
 			});
 		services.AddAuthorization();
 

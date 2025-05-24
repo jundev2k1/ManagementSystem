@@ -5,4 +5,5 @@ global using Application.Common.Exceptions;
 global using Application.Data;
 global using Domain.Models;
 global using MediatR;
+global using Shared.Constants;
 global using Shared.Helper;

@@ -1,21 +1,21 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Dtos;
 
 namespace WebAPI.Endpoints;
 
-public sealed class Login : ICarterModule
+public sealed class Register : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapPost("/auth/login", async (
-			[FromBody] AuthRequest request,
+		app.MapPost("/auth/register", async (
+			[FromBody] RegisterRequestDto request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<Login> logger,
 			CancellationToken cancellationToken) =>
 		{
-			var query = request.Adapt<LoginCommand>();
+			var query = new RegisterCommand(request.Adapt<RegisterRequestDto>());
 			var result = await sender.Send(query, cancellationToken);
 
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));

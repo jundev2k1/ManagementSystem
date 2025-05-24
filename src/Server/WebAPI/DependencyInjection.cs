@@ -2,6 +2,7 @@
 
 using WebAPI.Middlewares;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
 
 namespace WebAPI;
 
@@ -22,14 +23,15 @@ public static class DependencyInjection
 	{
 		services.AddSwaggerGen(config =>
 		{
+			config.SwaggerDoc("v1", new OpenApiInfo { Title = "Task Management API", Version = "v1" });
 			config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 			{
 				Name = "Authorization",
 				Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-				Scheme = "bearer",
+				Scheme = "Bearer",
 				BearerFormat = "JWT",
 				In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-				Description = "Enter JWT token with prefix 'Bearer '"
+				Description = "Enter JWT token with prefix 'Bearer {Token}'"
 			});
 
 			config.AddSecurityRequirement(new OpenApiSecurityRequirement

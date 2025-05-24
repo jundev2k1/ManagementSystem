@@ -27,7 +27,6 @@ public sealed class JwtTokenGenerator : IJwtTokenGenerator
 		{
 			new Claim(JwtRegisteredClaimNames.Jti, userId.ToString()),
 			new Claim(JwtRegisteredClaimNames.Email, email),
-			new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 		};
 		claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

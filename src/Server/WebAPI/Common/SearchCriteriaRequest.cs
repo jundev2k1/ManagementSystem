@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-namespace WebAPI.Dtos;
+namespace WebAPI.Common;
 
 public sealed class SearchCriteriaRequest
 {
