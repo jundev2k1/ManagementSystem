@@ -20,6 +20,8 @@ public static class DependencyInjection
 			config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 			config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 		});
+		services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 		services.AddCommonServices();
 
 		return services;

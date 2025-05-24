@@ -11,7 +11,7 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 	{
 		var targetTask = await dbContext.Users
 			.AsNoTracking()
-			.FirstOrDefaultAsync(t => t.UserId == id, cancellationToken);
+			.FirstOrDefaultAsync(u => u.UserId == id, cancellationToken);
 		return targetTask;
 	}
 
@@ -19,8 +19,22 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 	{
 		var targetTask = await dbContext.Users
 			.AsNoTracking()
-			.FirstOrDefaultAsync(t => t.UserName == userName, cancellationToken);
+			.FirstOrDefaultAsync(u => u.UserName == userName, cancellationToken);
 		return targetTask;
+	}
+
+	public async Task<bool> IsExistsUserName(string userName, CancellationToken cancellationToken = default)
+	{
+		return await dbContext.Users
+			.AsNoTracking()
+			.AnyAsync(u => u.UserName == userName, cancellationToken);
+	}
+
+	public async Task<bool> IsExistsEmail(string email, CancellationToken cancellationToken = default)
+	{
+		return await dbContext.Users
+			.AsNoTracking()
+			.AnyAsync(u => u.Email == email, cancellationToken);
 	}
 
 	public async Task<Guid> CreateNewUserAsync(User user, CancellationToken cancellationToken = default)
@@ -32,7 +46,7 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 	public async Task UpdateTaskAsync(User user, CancellationToken cancellationToken = default)
 	{
 		var targetUser = await dbContext.Users
-			.FirstOrDefaultAsync(t => t.UserId == user.UserId, cancellationToken);
+			.FirstOrDefaultAsync(u => u.UserId == user.UserId, cancellationToken);
 		if (targetUser is null) throw new NotFoundException(name: "User", key: user.UserId);
 
 		// Set the properties of the target task to the values from the source task
@@ -51,7 +65,7 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 	public async Task DeleteTaskAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var targetUser = await dbContext.Users.AsNoTracking()
-			.FirstOrDefaultAsync(t => t.UserId == id, cancellationToken);
+			.FirstOrDefaultAsync(u => u.UserId == id, cancellationToken);
 		if (targetUser is null) throw new NotFoundException(name: "User", key: id);
 
 		dbContext.Users.Remove(targetUser);
