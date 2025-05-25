@@ -21,25 +21,25 @@ const SignUpForm = ({ onSubmit }: SignUpFormParam) => (
       <Form className="max-w-sm mx-auto">
         <div className="grid grid-cols-2 gap-2">
           <div className="col-span-2">
-            <Input label="Tài khoản" name="username" />
+            <Input label="Username" name="username" />
           </div>
           <div className="col-span-2">
-            <Input label="Mật khẩu" name="password" type="password" />
+            <Input label="Password" name="password" type="password" />
           </div>
           <div className="col-span-2">
             <Input label="Email" name="email" />
           </div>
           <div>
-            <Input label="Họ" name="firstName" />
+            <Input label="First name" name="firstName" />
           </div>
           <div>
-            <Input label="Tên" name="lastName" />
+            <Input label="Last name" name="lastName" />
           </div>
           <div className="col-span-2">
-            <Input label="Số điện thoại" name="phoneNumber" />
+            <Input label="Phone" name="phoneNumber" />
           </div>
           <div className="col-span-2">
-            <Input label="Địa chỉ" name="address" />
+            <Input label="Address" name="address" />
           </div>
         </div>
         <div className="flex justify-center mt-4">

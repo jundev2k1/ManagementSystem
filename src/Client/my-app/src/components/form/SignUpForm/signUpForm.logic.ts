@@ -3,12 +3,12 @@
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object({
-  username: Yup.string().min(6, "Tối thiểu 6 ký tự").required("Bắt buộc"),
-  email: Yup.string().email("Định dạng Email chưa đúng").required("Bắt buộc"),
-  password: Yup.string().min(8, "Tối thiểu 8 ký tự").required("Bắt buộc"),
-  firstName: Yup.string().required("Bắt buộc"),
-  lastName: Yup.string().required("Bắt buộc"),
-  phoneNumber: Yup.string().matches(/^\+?[0-9]\d{1,14}$/, "Định dạng số điện thoại chưa đúng.").required("Bắt buộc"),
+  username: Yup.string().min(6, "Minimum 6 characters").required("Required"),
+  email: Yup.string().email("Invalid email format").required("Required"),
+  password: Yup.string().min(8, "Minimum 8 characters").required("Required"),
+  firstName: Yup.string().required("Required"),
+  lastName: Yup.string().required("Required"),
+  phoneNumber: Yup.string().matches(/^\+?[0-9]\d{1,14}$/, "Invalid phone number format").required("Required"),
   address: Yup.string(),
 });
 

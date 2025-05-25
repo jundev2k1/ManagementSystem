@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { SignInForm } from "../../components/form/SignInForm";
 import { Button } from "../../components/common";
-import './authPage.css';
+import './AuthPage.css';
 import { useAuth } from "../../features";
 import type { SignInFormInput } from "../../components/form/SignInForm/signInForm.logic";
 import { SignUpForm } from "../../components/form/SignUpForm";

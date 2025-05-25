@@ -3,7 +3,7 @@
 import { getToken } from './tokenUtils';
 import { handleError } from './errorHandler';
 
-const baseURL: string = 'http://localhost:5068';
+const baseURL: string = 'http://localhost:4000';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 

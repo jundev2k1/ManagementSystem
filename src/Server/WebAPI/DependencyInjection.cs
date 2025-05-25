@@ -42,7 +42,7 @@ public static class DependencyInjection
 				Scheme = "Bearer",
 				BearerFormat = "JWT",
 				In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-				Description = "Enter JWT token with prefix 'Bearer {Token}'"
+				Description = "Just enter the token, no need to start with the prefix 'Bearer {Token}'"
 			});
 
 			config.AddSecurityRequirement(new OpenApiSecurityRequirement
