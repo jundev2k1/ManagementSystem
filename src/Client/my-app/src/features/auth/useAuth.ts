@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../../store/store';
 import type { SignUpFormInput } from '../../components/form/SignUpForm/signUpForm.logic';
 import { authApi, type RegisterRequest } from '../../api/services/auth';
-import { setCredentials } from './authSlice';
+import { logout, setCredentials } from './authSlice';
 import { clearToken } from '../../api/client/tokenUtils';
 
 export const useAuth = () => {
@@ -39,12 +39,17 @@ export const useAuth = () => {
     dispatch(setCredentials({ token, auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 
+  const onLogout = () => {
+    clearToken();
+    dispatch(logout());
+  }
+
   return {
     auth,
     token,
     isAuthenticated,
     onLogin: onLogin,
     onRegister: onRegister,
-    onLogout: () => clearToken(),
+    onLogout: onLogout,
   };
 };

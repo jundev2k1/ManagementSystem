@@ -1,7 +1,21 @@
-#sign-in-wrapper #main-content {
-
+#sign-in-wrapper #main-content button[type="submit"] {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    border-radius: 150px;
+    cursor: pointer;
 }
 
 #sign-in-wrapper #sub-content {
+    background: url('https://wallpaperaccess.com/full/704467.jpg');
+    background-blend-mode: lighten;
+    background-size: cover;
+    background-position: -860px 50px;
+    box-shadow: -6px 6px 16px #8b8b8b;
+}
 
+#sign-in-wrapper #sub-content button[type="button"] {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    border-radius: 150px;
+    cursor: pointer;
 }

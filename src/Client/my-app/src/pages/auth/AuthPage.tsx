@@ -38,13 +38,17 @@ const AuthPage = () => {
   return (
     <div id="sign-in-wrapper" className="w-100 h-[100vh] flex">
       <div className="w-[75%]">
-        <div id="main-content" className="flex h-full items-center justify-center">
+        <div id="main-content" className="flex flex-col h-full items-center justify-center">
+          <h1 className="mb-[32px] text-5xl text-bold">{isSignInPage ? "Login to Your Account" : "Register new Account"}</h1>
           {isSignInPage ? <SignInForm onSubmit={onSignInSubmit} /> : <SignUpForm onSubmit={onSignUpSubmit} />}
         </div>
       </div>
       <div className="w-[25%] bg-green-300">
-        <div id="sub-content" className="flex h-full items-center justify-center">
-          <Button onClick={onChangePage}>{isSignInPage ? "Sign Up" : "Sign In"}</Button>
+        <div id="sub-content" className="flex flex-col h-full items-center justify-center">
+          <h2 className="text-2xl mb-2">{isSignInPage ? "New Here?" : "Already have an account"}</h2>
+          <div className="text-center">
+            <Button color="gray" onClick={onChangePage}>{isSignInPage ? "Sign Up" : "Sign In"}</Button>
+          </div>
         </div>
       </div>
     </div>

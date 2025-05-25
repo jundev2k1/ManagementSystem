@@ -22,7 +22,7 @@ const CommonInput = ({
   const showError = meta.touched && meta.error;
 
   return (
-    <div className="mb-4">
+    <div className="mb-1">
       <Label htmlFor={name}>{label}</Label>
       <TextInput
         {...field}
