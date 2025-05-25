@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+// Copyright (c) 2025 - Jun Dev. All rights reserved
+
 import './App.css'
-import { useAuth } from './features/auth/useAuth'
+import { useAuth } from './features'
+import AuthPage from './pages/auth/AuthPage';
 
 function App() {
-  const { login } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    debugger
-    login("admin02", "123456789");
-  }, [])
+  if (!isAuthenticated) return <AuthPage />
+
   return (
     <>
       Hello world

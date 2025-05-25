@@ -14,6 +14,17 @@ public static class DependencyInjection
 		services.AddEndpointsApiExplorer();
 		services.AddSwaggerUI();
 
+		services.AddCors(options =>
+		{
+			options.AddPolicy("AllowFrontend", policy =>
+			{
+				policy.WithOrigins("http://localhost:56217", "http://localhost:3000")
+					.AllowAnyHeader()
+					.AllowAnyMethod()
+					.AllowCredentials();
+			});
+		});
+
 		services.AddHttpContextAccessor();
 		services.AddCarter();
 
@@ -63,6 +74,7 @@ public static class DependencyInjection
 			app.UseSwaggerUI();
 		}
 
+		app.UseCors("AllowFrontend");
 		app.MapCarter();
 		app.UseMiddleware();
 		app.UseAuthentication();
@@ -75,6 +87,12 @@ public static class DependencyInjection
 	{
 		app.UseMiddleware<ErrorHandlingMiddleware>();
 		app.UseMiddleware<RequestLoggingMiddleware>();
+		app.Use(async (context, next) =>
+		{
+			await next();
+			Console.WriteLine("Origin: " + context.Request.Headers["Origin"]);
+			Console.WriteLine("Access-Control-Allow-Origin: " + context.Response.Headers["Access-Control-Allow-Origin"]);
+		});
 
 		return app;
 	}

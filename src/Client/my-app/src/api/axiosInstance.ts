@@ -4,7 +4,7 @@ import axios from 'axios';
 import { store } from '../store/store';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000',
+  baseURL: 'http://localhost:5068',
   withCredentials: true,
 });
 
@@ -14,5 +14,16 @@ api.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message || "Có lỗi xảy ra";
+      console.error("❌ API error:", message);
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;

@@ -8,11 +8,21 @@ export const useAuth = () => {
   const dispatch: AppDispatch = useDispatch();
   const { auth, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
+  const onLogin = async (userName: string, password: string) => {
+    try {
+      await dispatch(login(userName, password));
+      return true;
+    }
+    catch {
+      return false;
+    }
+  }
+
   return {
     auth,
     token,
     isAuthenticated,
-    login: (userName: string, password: string) => dispatch(login(userName, password)),
+    login: onLogin,
     logout: () => dispatch(logoutUser()),
   };
 };
