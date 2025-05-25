@@ -1,3 +1,3 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-export { LoginPage } from './Login';
+export { default as AuthPage } from './AuthPage';

@@ -18,10 +18,9 @@ public static class DependencyInjection
 		{
 			options.AddPolicy("AllowFrontend", policy =>
 			{
-				policy.WithOrigins("http://localhost:56217", "http://localhost:3000")
-					.AllowAnyHeader()
+				policy.AllowAnyOrigin()
 					.AllowAnyMethod()
-					.AllowCredentials();
+					.AllowAnyHeader();
 			});
 		});
 

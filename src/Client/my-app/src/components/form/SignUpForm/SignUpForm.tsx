@@ -4,8 +4,8 @@ import { Formik, Form } from "formik";
 import { Input, Button } from "../../common";
 import { initialValue, validationSchema, type SignUpFormInput } from "./signUpForm.logic";
 
-const LoginForm = (
-  onSubmit: (formValues: SignUpFormInput) => void) => (
+type SignUpFormParam = { onSubmit: (formValues: SignUpFormInput, actions: any) => void };
+const SignUpForm = ({ onSubmit }: SignUpFormParam) => (
   <Formik
     initialValues={initialValue}
     validationSchema={validationSchema}
@@ -25,4 +25,4 @@ const LoginForm = (
     )}
   </Formik>
 );
-export default LoginForm;
+export default SignUpForm;
