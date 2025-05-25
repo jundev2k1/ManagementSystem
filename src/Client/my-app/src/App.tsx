@@ -2,13 +2,14 @@
 
 import "./App.css";
 import { PageLayout, SidebarMenu } from "./components/layout";
-//import { useAuth } from "./features";
-//import AuthPage from "./pages/auth/AuthPage";
+import { TaskLayout } from "./pages/task";
+import { useAuth } from "./features";
+import AuthPage from "./pages/auth/AuthPage";
 
 function App() {
-  //const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  //if (!isAuthenticated) return <AuthPage />;
+  if (!isAuthenticated) return <AuthPage />;
 
   return (
     <PageLayout>
@@ -21,7 +22,7 @@ function App() {
       </PageLayout.Sidebar>
 
       <PageLayout.Body>
-        <h2>Body</h2>
+        <TaskLayout />
       </PageLayout.Body>
     </PageLayout>
   );

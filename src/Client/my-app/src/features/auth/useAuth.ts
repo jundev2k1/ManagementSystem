@@ -12,12 +12,18 @@ export const useAuth = () => {
   const { auth, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   const onLogin = async (userName: string, password: string) => {
-    debugger
-    const res = await authApi.login({ userName, password });
-    console.log(res);
-    if (!res.success || (res.data == null)) throw Error();
+    // const res = await authApi.login({ userName, password });
+    // if (!res.success || (res.data == null)) throw Error();
 
-    const { userId, email, firstName, lastName, roles, token } = res.data;
+    //const { userId, email, firstName, lastName, roles, token } = res.data;
+
+    const token = "Dummy";
+    const userId = "user1";
+    const email = "a@g.c";
+    const firstName = userName;
+    const lastName = password;
+    const roles = ["role1", "role2"];
+
     dispatch(setCredentials({ token, auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 

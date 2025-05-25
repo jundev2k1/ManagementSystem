@@ -23,8 +23,8 @@ const SidebarMenu = () => {
     <Sidebar aria-label="Sidebar with call to action button example">
       <SidebarItems>
         <SidebarItemGroup>
-          {menuItems.map(({ Icon, title, url }) => (
-            <SidebarItem href={url} icon={Icon} active>
+          {menuItems.map(({ Icon, title, url }, index) => (
+            <SidebarItem key={index} href={url} icon={Icon} active>
               {title}
             </SidebarItem>
           ))}

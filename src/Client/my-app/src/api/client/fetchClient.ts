@@ -12,7 +12,7 @@ interface FetchOptions extends RequestInit {
   params?: ParameterInfo[];
 }
 
-interface ParameterInfo {
+export interface ParameterInfo {
   key: string,
   value: any,
 }
@@ -78,7 +78,6 @@ export const callApi = async <T>(
   }
 };
 
-// Shorthand helpers
 export const api = {
   get: <T>(url: string, options?: FetchOptions) => callApi<T>('GET', url, null, options),
   post: <T>(url: string, body: any, options?: FetchOptions) => callApi<T>('POST', url, body, options),
