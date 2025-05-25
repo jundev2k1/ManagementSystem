@@ -1,19 +1,30 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-import './App.css'
-import { useAuth } from './features'
-import AuthPage from './pages/auth/AuthPage';
+import "./App.css";
+import { PageLayout, SidebarMenu } from "./components/layout";
+//import { useAuth } from "./features";
+//import AuthPage from "./pages/auth/AuthPage";
 
 function App() {
-  const { isAuthenticated } = useAuth();
+  //const { isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) return <AuthPage />
+  //if (!isAuthenticated) return <AuthPage />;
 
   return (
-    <>
-      Hello world
-    </>
-  )
+    <PageLayout>
+      <PageLayout.Header>
+        <h1>Task Management</h1>
+      </PageLayout.Header>
+
+      <PageLayout.Sidebar>
+        <SidebarMenu />
+      </PageLayout.Sidebar>
+
+      <PageLayout.Body>
+        <h2>Body</h2>
+      </PageLayout.Body>
+    </PageLayout>
+  );
 }
 
-export default App
+export default App;
