@@ -3,7 +3,7 @@
 import { getToken } from './tokenUtils';
 import { handleError } from './errorHandler';
 
-const baseURL: string = 'http://localhost:4000';
+const baseURL: string = import.meta.env.VITE_API_URL || 'http://localhost:5068';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
