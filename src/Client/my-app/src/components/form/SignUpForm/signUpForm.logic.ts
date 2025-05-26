@@ -9,7 +9,7 @@ export const validationSchema = Yup.object({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   phoneNumber: Yup.string().matches(/^\+?[0-9]\d{1,14}$/, "Invalid phone number format").required("Required"),
-  address: Yup.string(),
+  address: Yup.string().required("Required"),
 });
 
 export interface SignUpFormInput {

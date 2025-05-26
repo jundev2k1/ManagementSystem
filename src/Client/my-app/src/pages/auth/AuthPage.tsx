@@ -29,7 +29,7 @@ const AuthPage = () => {
     try {
       await onRegister(formInput);
     } catch {
-      toast.error('Incorrect account or password');
+      toast.error('Username or email is exists');
     } finally {
       actions.setSubmitting(false);
     }

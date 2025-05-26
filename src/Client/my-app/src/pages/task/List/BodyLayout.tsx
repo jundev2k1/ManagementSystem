@@ -21,7 +21,6 @@ const BodyLayout = () => {
   const { data } = useTaskList();
   if (!data) return <Spinner />;
 
-  debugger
   return (
     <div className="overflow-x-auto">
       <Table>
