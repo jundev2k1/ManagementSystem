@@ -6,14 +6,14 @@ export interface TaskModel {
   description: string;
   status: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   progress: number;
-  startDate: Date;
-  dueDate: Date;
+  startDate: string;
+  dueDate: string;
   priority: 0 | 1 | 2 | 3 | 4;
   assignedTo: string;
   assignedBy: string;
   note: string;
-	CreatedAt: Date;
+	CreatedAt: string;
 	CreatedBy: string;
-	LastModifiedAt: Date;
+	LastModifiedAt: string;
 	LastModifiedBy: string;
 }

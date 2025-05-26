@@ -3,12 +3,11 @@
 import { api } from "../../client/fetchClient";
 import type { SearchRequest, SearchResult } from "../../../common/types";
 import type { TaskModel } from "./types";
-import { toParameters } from "../../../common/helper";
+import { toParameters } from "../../../common/utils/mapper";
 
 export const taskApi = {
   getById: (id: string) => api.get<TaskModel>(`/task/${id}`),
   getByCriteria: (request: SearchRequest) => {
-    debugger
     const params = toParameters(request);
     return api.get<SearchResult<TaskModel>>(`/task`, { params: params });
   },

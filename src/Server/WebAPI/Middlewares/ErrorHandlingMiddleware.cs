@@ -58,7 +58,9 @@ public sealed class ErrorHandlingMiddleware
 			_ => (int)HttpStatusCode.InternalServerError // 500
 		};
 
-		var result = ApiResponse<object>.Fail(exception.Message);
+		var errorMessage = context.Response.StatusCode != (int)HttpStatusCode.InternalServerError
+			? exception.Message : "A server error occurred. Please try again.";
+		var result = ApiResponse<object>.Fail(errorMessage);
 		return context.Response.WriteAsync(JsonSerializer.Serialize(result));
 	}
 }

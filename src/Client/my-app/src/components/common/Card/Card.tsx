@@ -1,17 +1,21 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-import { Card } from "flowbite-react";
+import { Card as FlowbiteCard } from "flowbite-react";
 
-interface CommonCardProps {
+interface CardProps {
   title: string;
   children: React.ReactNode;
 }
 
-export const CommonCard = ({ title, children }: CommonCardProps) => {
+const Card = ({ title, children }: CardProps) => {
   return (
-    <Card className="w-full shadow-lg">
-      <h5 className="text-xl font-bold tracking-tight text-gray-900">{title}</h5>
+    <FlowbiteCard className="w-full shadow-lg">
+      <h5 className="text-xl font-bold tracking-tight text-gray-900">
+        {title}
+      </h5>
       {children}
-    </Card>
+    </FlowbiteCard>
   );
 };
+
+export default Card;

@@ -5,30 +5,26 @@ import type { RootState, AppDispatch } from '../../store/store';
 import type { SignUpFormInput } from '../../components/form/SignUpForm/signUpForm.logic';
 import { authApi, type RegisterRequest } from '../../api/services/auth';
 import { logout, setCredentials } from './authSlice';
-import { clearToken } from '../../api/client/tokenUtils';
+import { clearToken, setToken } from '../../api/client/tokenUtils';
+import type { LoginInputRequest } from './types';
 
 export const useAuth = () => {
   const dispatch: AppDispatch = useDispatch();
   const { auth, token, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  const onLogin = async (userName: string, password: string) => {
-    // const res = await authApi.login({ userName, password });
-    // if (!res.success || (res.data == null)) throw Error();
+  const onLogin = async ({userName, password} : LoginInputRequest) => {
+    // Handle authentication submission
+    const res = await authApi.login({ userName, password });
+    if (!res.isSuccess || (res.data == null)) throw Error();
 
-    //const { userId, email, firstName, lastName, roles, token } = res.data;
-
-    const token = "Dummy";
-    const userId = "user1";
-    const email = "a@g.c";
-    const firstName = userName;
-    const lastName = password;
-    const roles = ["role1", "role2"];
-
-    dispatch(setCredentials({ token, auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
+    // Handle registration submission
+    const { userId, email, firstName, lastName, roles, token } = res.data;
+    setToken(token);
+    dispatch(setCredentials({ auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 
   const onRegister = async (formInput: SignUpFormInput) => {
-    debugger
+    // Handle registration submission
     const request: RegisterRequest = {
       userName: formInput.username,
       email: formInput.email,
@@ -39,10 +35,12 @@ export const useAuth = () => {
       address: formInput.address,
     };
     const res = await authApi.register(request);
-    if (!res.success || (res.data == null)) throw Error();
+    if (!res.isSuccess || (res.data == null)) throw Error();
 
+    // Handle if complete
     const { userId, email, firstName, lastName, roles, token } = res.data;
-    dispatch(setCredentials({ token, auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
+    setToken(token);
+    dispatch(setCredentials({ auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 
   const onLogout = () => {

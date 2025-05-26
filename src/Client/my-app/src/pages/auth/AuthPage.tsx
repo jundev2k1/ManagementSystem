@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SignInForm } from "../../components/form/SignInForm";
-import { Button } from "../../components/common";
+import { Button, toast } from "../../components/common";
 import './AuthPage.css';
 import { useAuth } from "../../features";
 import type { SignInFormInput } from "../../components/form/SignInForm/signInForm.logic";
@@ -15,11 +15,11 @@ const AuthPage = () => {
 
   const onChangePage = () => setIsSignInPage(!isSignInPage);
 
-  const onSignInSubmit = async ({ username, password }: SignInFormInput, actions: any) => {
+  const onSignInSubmit = async (formInput: SignInFormInput, actions: any) => {
     try {
-      await onLogin(username, password);
+      await onLogin(formInput);
     } catch {
-      console.log('error');
+      toast.error('Incorrect account or password');
     } finally {
       actions.setSubmitting(false);
     }
@@ -29,7 +29,7 @@ const AuthPage = () => {
     try {
       await onRegister(formInput);
     } catch {
-      console.log('error');
+      toast.error('Incorrect account or password');
     } finally {
       actions.setSubmitting(false);
     }
@@ -41,6 +41,7 @@ const AuthPage = () => {
         <div id="main-content" className="flex flex-col h-full items-center justify-center">
           <h1 className="mb-[32px] text-5xl text-bold">{isSignInPage ? "Login to Your Account" : "Register new Account"}</h1>
           {isSignInPage ? <SignInForm onSubmit={onSignInSubmit} /> : <SignUpForm onSubmit={onSignUpSubmit} />}
+
         </div>
       </div>
       <div className="w-[25%] bg-green-300">

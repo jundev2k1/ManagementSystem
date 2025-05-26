@@ -15,11 +15,13 @@ import {
 } from "flowbite-react";
 import { useTaskList } from "./useTaskList";
 import { AiOutlineMore } from "react-icons/ai";
+import { formatDate } from "../../../common/utils/datetime";
 
 const BodyLayout = () => {
   const { data } = useTaskList();
   if (!data) return <Spinner />;
 
+  debugger
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -39,8 +41,8 @@ const BodyLayout = () => {
                 <p>{description}</p>
               </TableCell>
               <TableCell>
-                <p>Start date: {startDate.toLocaleDateString()}</p>
-                <p>Start date: {dueDate.toLocaleDateString()}</p>
+                <p>Start date: {formatDate(startDate)}</p>
+                <p>Start date: {formatDate(dueDate)}</p>
                 <Progress progress={progress} progressLabelPosition="inside" textLabelPosition="outside" size="lg" labelProgress labelText />
               </TableCell>
               <TableCell>{status}</TableCell>

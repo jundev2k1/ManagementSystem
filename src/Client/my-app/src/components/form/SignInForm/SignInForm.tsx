@@ -20,7 +20,7 @@ const SignInForm = ({ onSubmit }: SignInFormParam) => (
     {({ isSubmitting }) => (
       <Form className="max-w-xl mx-auto space-y-4">
         <div className="w-[300px]">
-          <Input label="User name" name="username" />
+          <Input label="User name" name="userName" />
           <Input label="Password" name="password" type="password" />
           <div className="flex justify-center mt-[32px]">
             <Button type="submit" isLoading={isSubmitting}>

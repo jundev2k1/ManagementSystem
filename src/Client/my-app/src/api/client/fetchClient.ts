@@ -20,7 +20,7 @@ export interface ParameterInfo {
 interface ApiResult<T> {
   data: T | null;
   message: string;
-  success: boolean;
+  isSuccess: boolean;
 }
 
 const buildUrl = (url: string, params?: ParameterInfo[]) => {
@@ -40,11 +40,10 @@ export const callApi = async <T>(
   const result: ApiResult<T> = {
     data: null,
     message: '',
-    success: false,
+    isSuccess: false,
   };
 
   try {
-    debugger
     const endpoint = buildUrl(baseURL + url, params);
     const option = {
       method,
@@ -66,14 +65,15 @@ export const callApi = async <T>(
     const json = res.status !== 204 ? await res.json() : {};
     return {
       ...result,
-      data: json,
-      success: true,
+      data: json.data || null,
+      message: json.message,
+      isSuccess: json.success,
     };
   } catch (err: any) {
     return {
       ...result,
       message: err,
-      success: false,
+      isSuccess: false,
     };
   }
 };
