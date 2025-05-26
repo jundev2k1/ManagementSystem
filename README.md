@@ -64,6 +64,7 @@ docker exec -it - applicationdb psql -U postgres
 - Client:
     + Xử lý cơ bản giao diện UI (Chưa hoàn chỉnh)
     + Hiện xử lý giao tiếp với server đang gặp vấn đề và chưa giải quyết xong, do đó đang set dummy dữ liệu để chạy được trên localhost
+    + Tại UI, chỉ cần nhập để không bị lỗi validate là có thể next sang trang kế tiếp được
   
 ## 📝 Notes
 
