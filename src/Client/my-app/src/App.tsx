@@ -17,7 +17,9 @@ function App() {
       ) : (
         <PageLayout>
           <PageLayout.Header>
-            <h1>Task Management</h1>
+            <div className="w-full flex justify-between items-center">
+              <h1 className="text-xl font-bold">Task Management System</h1>
+            </div>
           </PageLayout.Header>
 
           <PageLayout.Sidebar>

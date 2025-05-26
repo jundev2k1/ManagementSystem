@@ -28,9 +28,9 @@ const BodyLayout = () => {
           <TableHead>
             <TableRow>
               <TableHeadCell className="py-4">Task info</TableHeadCell>
-              <TableHeadCell>Progress</TableHeadCell>
-              <TableHeadCell>Status</TableHeadCell>
-              <TableHeadCell></TableHeadCell>
+              <TableHeadCell className="w-[25%]">Progress</TableHeadCell>
+              <TableHeadCell className="w-[15%]">Status</TableHeadCell>
+              <TableHeadCell className="w-[10%]"></TableHeadCell>
             </TableRow>
           </TableHead>
           <TableBody className="divide-y">
@@ -40,10 +40,10 @@ const BodyLayout = () => {
                   <h3>{title}</h3>
                   <p>{description}</p>
                 </TableCell>
-                <TableCell>
+                <TableCell className="w-[20%]">
                   <p>Start date: {formatDate(startDate)}</p>
                   <p>Start date: {formatDate(dueDate)}</p>
-                  <Progress progress={progress} progressLabelPosition="inside" textLabelPosition="outside" size="lg" labelProgress labelText />
+                  <Progress className="mt-2" color="indigo" progress={progress} size="lg" labelProgress />
                 </TableCell>
                 <TableCell>{status}</TableCell>
                 <TableCell>

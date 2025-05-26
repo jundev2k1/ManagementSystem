@@ -2,6 +2,7 @@
 
 import type { IconType } from "react-icons";
 import { FaTasks } from "react-icons/fa";
+import { HiChartPie, HiUser } from "react-icons/hi";
 
 export interface MenuItem {
   Icon: IconType;
@@ -11,8 +12,18 @@ export interface MenuItem {
 
 export const menuItems: readonly MenuItem[] = Object.freeze([
   {
+    Icon: HiChartPie,
+    title: "Dashboard",
+    url: "#",
+  },
+  {
     Icon: FaTasks,
-    title: "Task Management",
+    title: "Tasks",
+    url: "#",
+  },
+  {
+    Icon: HiUser,
+    title: "Users",
     url: "#",
   },
 ]);

@@ -2,6 +2,7 @@
 
 import { useAuth } from "../../../features";
 import {
+  Avatar,
   Badge,
   Sidebar,
   SidebarCTA,
@@ -13,7 +14,7 @@ import { menuItems } from "./menu";
 import { TbLogout } from "react-icons/tb";
 
 const SidebarMenu = () => {
-  const { onLogout } = useAuth();
+  const { auth, onLogout } = useAuth();
 
   const handleLogout = () => {
     onLogout();
@@ -21,14 +22,24 @@ const SidebarMenu = () => {
 
   return (
     <Sidebar aria-label="Sidebar with call to action button example">
+      <div className="py-2 inline-flex">
+        <Avatar placeholderInitials="RR" rounded bordered>
+          <p className="font-medium text-lg">
+            {`${auth?.firstName || ''} ${auth?.lastName || ''}`}
+          </p>
+          <span className="text-sm">{auth?.email}</span>
+        </Avatar>
+      </div>
       <SidebarItems>
         <SidebarItemGroup>
           {menuItems.map(({ Icon, title, url }, index) => (
-            <SidebarItem key={index} href={url} icon={Icon} active>
+            <SidebarItem key={index} href={url} icon={Icon} active={title==="Tasks"}>
               {title}
             </SidebarItem>
           ))}
 
+        </SidebarItemGroup>
+        <SidebarItemGroup>
           <SidebarItem className="cursor-pointer" onClick={handleLogout} icon={TbLogout}>
             Logout
           </SidebarItem>

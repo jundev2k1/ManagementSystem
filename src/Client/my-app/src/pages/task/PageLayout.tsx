@@ -5,7 +5,7 @@ import { BodyTaskLayout } from "./List";
 const PageLayout = () => {
   return (
     <>
-      <h2>Task management</h2>
+      <h1 className="text-2xl text-bold mb-3">Task management</h1>
 
       <BodyTaskLayout />
     </>
