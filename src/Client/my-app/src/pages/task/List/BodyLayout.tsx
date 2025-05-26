@@ -12,53 +12,56 @@ import {
   TableHead,
   TableHeadCell,
   TableRow,
-} from "flowbite-react";
+  SearchInfo,
+} from "../../../components/common";
 import { useTaskList } from "./useTaskList";
-import { AiOutlineMore } from "react-icons/ai";
 import { formatDate } from "../../../common/utils/datetime";
 
 const BodyLayout = () => {
-  const { data } = useTaskList();
+  const { data, page, pageSize, onPageSizeChange } = useTaskList();
   if (!data) return <Spinner />;
 
   return (
-    <div className="overflow-x-auto">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell>Task info</TableHeadCell>
-            <TableHeadCell>Progress</TableHeadCell>
-            <TableHeadCell>Status</TableHeadCell>
-            <TableHeadCell></TableHeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody className="divide-y">
-          {data.items.map(({ title, description, startDate, dueDate, progress, status }, index) => (
-            <TableRow key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </TableCell>
-              <TableCell>
-                <p>Start date: {formatDate(startDate)}</p>
-                <p>Start date: {formatDate(dueDate)}</p>
-                <Progress progress={progress} progressLabelPosition="inside" textLabelPosition="outside" size="lg" labelProgress labelText />
-              </TableCell>
-              <TableCell>{status}</TableCell>
-              <TableCell>
-                <Dropdown label="" dismissOnClick={false} renderTrigger={() => <button className="bg-gray-100 p-2 rounded shadow cursor-pointer"><AiOutlineMore /></button>}>
-                  <DropdownItem>View</DropdownItem>
-                  <DropdownItem>Edit</DropdownItem>
-                  <DropdownItem>Delete</DropdownItem>
-                </Dropdown>
-              </TableCell>
+    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+      <div className="overflow-x-auto">
+        <Table hoverable>
+          <TableHead>
+            <TableRow>
+              <TableHeadCell className="py-4">Task info</TableHeadCell>
+              <TableHeadCell>Progress</TableHeadCell>
+              <TableHeadCell>Status</TableHeadCell>
+              <TableHeadCell></TableHeadCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    <div className="flex overflow-x-auto sm:justify-center">
-      <Pagination currentPage={1} totalPages={100} onPageChange={() => console.log("abc")} />
-    </div>
+          </TableHead>
+          <TableBody className="divide-y">
+            {data.items.map(({ title, description, startDate, dueDate, progress, status }, index) => (
+              <TableRow key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </TableCell>
+                <TableCell>
+                  <p>Start date: {formatDate(startDate)}</p>
+                  <p>Start date: {formatDate(dueDate)}</p>
+                  <Progress progress={progress} progressLabelPosition="inside" textLabelPosition="outside" size="lg" labelProgress labelText />
+                </TableCell>
+                <TableCell>{status}</TableCell>
+                <TableCell>
+                  <Dropdown color="alternative" label="Action" dismissOnClick={false}>
+                    <DropdownItem>View</DropdownItem>
+                    <DropdownItem>Edit</DropdownItem>
+                    <DropdownItem>Delete</DropdownItem>
+                  </Dropdown>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <div className="flex items-center justify-between p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-600">
+          <SearchInfo page={page} pageSize={pageSize} searchCount={data.items.length} totalCount={data.totalItems} onPageSizeChange={onPageSizeChange} />
+          <Pagination currentPage={1} totalPages={100} onPageChange={() => console.log("abc")} />
+        </div>
+      </div>
     </div>
   );
 };

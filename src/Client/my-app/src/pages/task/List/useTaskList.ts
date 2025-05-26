@@ -26,12 +26,12 @@ export const useTaskList = () => {
     isLoading,
     data,
     filters,
-    setFilters,
+    onFilterChange: setFilters,
     sorts,
-    setSorts,
+    onSortChange: setSorts,
     page,
-    setPage,
+    onPageChange: setPage,
     pageSize,
-    setPageSize,
+    onPageSizeChange: setPageSize,
   };
 };

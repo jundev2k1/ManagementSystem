@@ -8,6 +8,7 @@ interface ButtonProps {
   color?: "blue" | "gray" | "green" | "red" | "yellow";
   type?: "button" | "submit" | "reset";
   isLoading?: boolean;
+  outline?: boolean;
 }
 
 const CommonButton = ({
@@ -16,9 +17,16 @@ const CommonButton = ({
   color = "blue",
   type = "button",
   isLoading = false,
+  outline = false,
 }: ButtonProps) => {
   return (
-    <Button color={color} type={type} onClick={onClick} disabled={isLoading}>
+    <Button
+      color={color}
+      type={type}
+      onClick={onClick}
+      disabled={isLoading}
+      outline={outline}
+    >
       {isLoading ? "Loading..." : children}
     </Button>
   );
