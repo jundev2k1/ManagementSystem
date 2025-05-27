@@ -1,4 +1,10 @@
 services:
+  distributedcache:
+    container_name: distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
+
   applicationdb:
     container_name: applicationdb
     environment:
@@ -20,6 +26,7 @@ services:
       - "4000:8080"
     depends_on:
       - applicationdb
+      - distributedcache
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

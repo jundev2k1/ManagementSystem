@@ -18,8 +18,8 @@ export const useAuth = () => {
     if (!res.isSuccess || (res.data == null)) throw Error();
 
     // Handle registration submission
-    const { userId, email, firstName, lastName, roles, token } = res.data;
-    setToken(token);
+    const { userId, email, firstName, lastName, roles, accessToken, refreshToken } = res.data;
+    setToken(accessToken, refreshToken);
     dispatch(setCredentials({ auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 
@@ -38,8 +38,8 @@ export const useAuth = () => {
     if (!res.isSuccess || (res.data == null)) throw Error();
 
     // Handle if complete
-    const { userId, email, firstName, lastName, roles, token } = res.data;
-    setToken(token);
+    const { userId, email, firstName, lastName, roles, accessToken, refreshToken } = res.data;
+    setToken(accessToken, refreshToken);
     dispatch(setCredentials({ auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 

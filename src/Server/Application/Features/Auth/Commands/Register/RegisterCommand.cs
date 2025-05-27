@@ -13,4 +13,5 @@ public record RegisterResult(
 	string FirstName,
 	string LastName,
 	string[] Roles,
-	string Token);
+	string AccessToken,
+	string RefreshToken);

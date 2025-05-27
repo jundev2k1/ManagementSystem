@@ -1,6 +1,6 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-import type { ParameterInfo } from "../../api/client/fetchClient";
+import type { ParameterInfo } from "../../api/client/types";
 import type { SearchRequest } from "../types";
 
 export const toParameters = ({ filters, sorts, page,  pageSize }:SearchRequest): ParameterInfo[] => {

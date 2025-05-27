@@ -1,10 +1,10 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-namespace Application.Features.Auth.Commands.Login;
+namespace Application.Features.Auth.Commands.RefreshToken;
 
-public record LoginCommand(string UserName, string Password) : ICommand<LoginResult>;
+public record RefreshTokenCommand(string RefreshToken) : ICommand<RefreshTokenResult>;
 
-public record LoginResult(
+public record RefreshTokenResult(
 	string UserId,
 	string UserName,
 	string Email,

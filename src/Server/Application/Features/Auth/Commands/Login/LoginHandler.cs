@@ -2,21 +2,22 @@
 
 using Application.Common.Auth;
 using Application.Common.Interfaces;
+using Application.Common.Interfaces.Services;
 
 namespace Application.Features.Auth.Commands.Login;
 
 public sealed class LoginHandler : ICommandHandler<LoginCommand, LoginResult>
 {
-	private readonly IJwtTokenGenerator _jwtTokenGenerator;
+	private readonly IAuthService _authService;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IPasswordHasher _passwordHasher;
 
 	public LoginHandler(
-		IJwtTokenGenerator jwtTokenGenerator,
+		IAuthService authService,
 		IUnitOfWork unitOfWork,
 		IPasswordHasher passwordHasher)
 	{
-		_jwtTokenGenerator = jwtTokenGenerator;
+		_authService = authService;
 		_unitOfWork = unitOfWork;
 		_passwordHasher = passwordHasher;
 	}
@@ -27,15 +28,17 @@ public sealed class LoginHandler : ICommandHandler<LoginCommand, LoginResult>
 		if (targetUser is null || !_passwordHasher.VerifyPassword(targetUser.PasswordHash, request.Password))
 			throw new UnauthorizedAccessException("Invalid email or password.");
 
-		var token = _jwtTokenGenerator.GenerateJwtToken(targetUser.UserId, targetUser.Email, Array.Empty<string>());
+		var refreshToken = await _authService.GenerateRefreshTokenAsync(targetUser.UserId);
+		var accessToken = _authService.GenerateAccessToken(targetUser.UserId, targetUser.Email, Array.Empty<string>());
 		var result = new LoginResult(
 			UserId: targetUser.UserId.ToString(),
 			UserName: targetUser.UserName,
 			Email: targetUser.Email,
 			FirstName: targetUser.FirstName ?? string.Empty,
 			LastName: targetUser.LastName ?? string.Empty,
-			Token: token,
-			Roles: Array.Empty<string>());
+			Roles: Array.Empty<string>(),
+			AccessToken: accessToken,
+			RefreshToken: refreshToken.Token);
 		return result;
 	}
 }

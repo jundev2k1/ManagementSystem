@@ -12,7 +12,8 @@ export interface AuthResponse {
   firstName: string;
   lastName: string;
   roles: string[];
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface RegisterRequest {

@@ -36,7 +36,7 @@ public sealed class JwtTokenGenerator : IJwtTokenGenerator
 			Issuer = _jwtSettings.Issuer,
 			Audience = _jwtSettings.Audience,
 			Subject = new ClaimsIdentity(claims),
-			Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
+			Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpiryMinutes),
 			SigningCredentials = new SigningCredentials(
 				new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 		};

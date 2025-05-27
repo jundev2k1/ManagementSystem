@@ -1,8 +1,7 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-using WebAPI.Middlewares;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Options;
+using WebAPI.Middlewares;
 
 namespace WebAPI;
 

@@ -4,9 +4,11 @@ namespace Application.Common.Auth;
 
 public interface IRefreshTokenCache
 {
-	Task<RefreshToken> GenerateRefreshTokenAsync(Guid userId);
+	Task SaveAsync(RefreshToken token, CancellationToken cancellationToken = default);
 
-	Task<bool> RevokeTokenAsync(string token);
+	Task<RefreshToken?> GetAsync(string token, CancellationToken cancellationToken = default);
 
-	Task<bool> ValidateRefreshTokenAsync(string token, Guid userId);
+	Task RevokeAsync(string token, CancellationToken cancellationToken = default);
+
+	Task DeleteAsync(string token, CancellationToken cancellationToken = default);
 }

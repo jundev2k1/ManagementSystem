@@ -10,5 +10,6 @@ public sealed class AuthResponseDto
 	public string FirstName { get; set; } = string.Empty;
 	public string LastName { get; set; } = string.Empty;
 	public string[] Roles { get; set; } = Array.Empty<string>();
-	public string Token { get; set; } = string.Empty;
+	public string AccessToken { get; set; } = string.Empty;
+	public string RefreshToken { get; set; } = string.Empty;
 }

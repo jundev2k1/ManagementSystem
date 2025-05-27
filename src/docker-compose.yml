@@ -1,6 +1,9 @@
 version: '3.9'
 
 services:
+  distributedcache:
+    image: redis:latest
+
   applicationdb:
     image: postgres
 

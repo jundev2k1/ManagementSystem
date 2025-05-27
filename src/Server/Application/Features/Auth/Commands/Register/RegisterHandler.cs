@@ -2,24 +2,25 @@
 
 using Application.Common.Auth;
 using Application.Common.Interfaces;
+using Application.Common.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Auth.Commands.Register;
 
 public sealed class RegisterHandler : ICommandHandler<RegisterCommand, RegisterResult>
 {
-	private readonly IJwtTokenGenerator _jwtTokenGenerator;
+	private readonly IAuthService _authService;
 	private readonly IUnitOfWork _unitOfWork;
 	private readonly IPasswordHasher _passwordHasher;
 	private readonly ILogger<RegisterHandler> _logger;
 
 	public RegisterHandler(
-		IJwtTokenGenerator jwtTokenGenerator,
+		IAuthService authService,
 		IUnitOfWork unitOfWork,
 		IPasswordHasher passwordHasher,
 		ILogger<RegisterHandler> logger)
 	{
-		_jwtTokenGenerator = jwtTokenGenerator;
+		_authService = authService;
 		_unitOfWork = unitOfWork;
 		_passwordHasher = passwordHasher;
 		_logger = logger;
@@ -53,7 +54,8 @@ public sealed class RegisterHandler : ICommandHandler<RegisterCommand, RegisterR
 		await _unitOfWork.SaveAsync(cancellationToken);
 
 		// Generate JWT token for the new user
-		var token = _jwtTokenGenerator.GenerateJwtToken(userId, newUser.Email, Array.Empty<string>());
+		var accessToken = _authService.GenerateAccessToken(userId, newUser.Email, Array.Empty<string>());
+		var refreshToken = await _authService.GenerateRefreshTokenAsync(userId, cancellationToken);
 
 		// Return the registration result
 		var result = new RegisterResult(
@@ -63,7 +65,8 @@ public sealed class RegisterHandler : ICommandHandler<RegisterCommand, RegisterR
 			FirstName: newUser.FirstName ?? string.Empty,
 			LastName: newUser.LastName ?? string.Empty,
 			Roles: Array.Empty<string>(),
-			Token: token);
+			AccessToken: accessToken,
+			RefreshToken: refreshToken.Token);
 		return result;
 	}
 

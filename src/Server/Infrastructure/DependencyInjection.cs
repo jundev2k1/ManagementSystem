@@ -3,9 +3,11 @@
 using Application.Common.Auth;
 using Application.Common.Interfaces;
 using Application.Common.Interfaces.Repositories;
+using Application.Common.Interfaces.Services;
 using Infrastructure.Auth;
 using Infrastructure.Authentication;
 using Infrastructure.Data;
+using Infrastructure.Data.Caching;
 using Infrastructure.Data.Extensions;
 using Infrastructure.Repositories;
 using Infrastructure.Security;
@@ -22,11 +24,13 @@ public static class DependencyInjection
 {
 	public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
 	{
-		services.AddDbConnection(configuration);
-		services.AddRepositories();
-		services.AddServices();
-		services.AddJwtAuthentication(configuration);
-		services.AddSecurity();
+		services
+			.AddDbConnection(configuration)
+			.AddRedisCaching(configuration)
+			.AddJwtAuthentication(configuration)
+			.AddRepositories()
+			.AddServices()
+			.AddSecurity();
 
 		services.AddScoped<IUnitOfWork, UnitOfWork>();
 		services.AddScoped<DatabaseInitializer>();
@@ -48,6 +52,20 @@ public static class DependencyInjection
 		return services;
 	}
 
+	private static IServiceCollection AddRedisCaching(this IServiceCollection services, IConfiguration configuration)
+	{
+		services.AddStackExchangeRedisCache(option =>
+		{
+			option.Configuration = configuration.GetConnectionString("Redis");
+			option.InstanceName = "ManagementSystem:";
+		});
+
+		services.AddSingleton<IRedisCache, RedisCache>();
+		services.AddScoped<IRefreshTokenCache, RefreshTokenCache>();
+
+		return services;
+	}
+
 	private static IServiceCollection AddRepositories(this IServiceCollection services)
 	{
 		services.AddScoped<ITaskRepository, TaskRepository>();
@@ -59,6 +77,7 @@ public static class DependencyInjection
 	private static IServiceCollection AddServices(this IServiceCollection services)
 	{
 		services.AddScoped<ICurrentUser, CurrentUser>();
+		services.AddScoped<IAuthService, AuthService>();
 
 		return services;
 	}

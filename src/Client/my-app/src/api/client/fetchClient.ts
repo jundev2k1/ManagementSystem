@@ -2,26 +2,9 @@
 
 import { getToken } from './tokenUtils';
 import { handleError } from './errorHandler';
+import type { ApiResult, FetchOptions, HttpMethod, ParameterInfo } from './types';
 
 const baseURL: string = import.meta.env.VITE_API_URL || 'http://localhost:5068';
-
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-interface FetchOptions extends RequestInit {
-  auth?: boolean;
-  params?: ParameterInfo[];
-}
-
-export interface ParameterInfo {
-  key: string,
-  value: any,
-}
-
-interface ApiResult<T> {
-  data: T | null;
-  message: string;
-  isSuccess: boolean;
-}
 
 const buildUrl = (url: string, params?: ParameterInfo[]) => {
   const query = params ? '?' + params.map(({ key, value }) => `${key}=${value}`).join('&') : '';
@@ -34,7 +17,7 @@ export const callApi = async <T>(
   body?: any,
   options: FetchOptions = {}
 ): Promise<ApiResult<T>> => {
-  const { auth = true, headers, params, ...rest } = options;
+  const { auth = true, headers, params, isRedirectError = true, ...rest } = options;
   const token = auth ? getToken() : null;
 
   const result: ApiResult<T> = {
@@ -49,7 +32,7 @@ export const callApi = async <T>(
       method,
       headers: {
         'Content-Type': 'application/json',
-        ...(auth && token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(auth && token?.accessToken ? { Authorization: `Bearer ${token.accessToken}` } : {}),
         ...(headers || {}),
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -58,8 +41,10 @@ export const callApi = async <T>(
     const res = await fetch(endpoint, option);
 
     if (!res.ok) {
-      const error = await handleError(res);
-      throw error;
+      const error = await handleError(res, isRedirectError);
+      if (error) throw error;
+
+      return callApi<T>(method, url, body, option);
     }
 
     const json = res.status !== 204 ? await res.json() : {};
