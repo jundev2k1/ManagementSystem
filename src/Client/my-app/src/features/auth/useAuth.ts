@@ -43,7 +43,9 @@ export const useAuth = () => {
     dispatch(setCredentials({ auth: { userId: userId, email: email, firstName: firstName, lastName: lastName, roles } }));
   }
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    await authApi.logout();
+
     clearToken();
     dispatch(logout());
   }
