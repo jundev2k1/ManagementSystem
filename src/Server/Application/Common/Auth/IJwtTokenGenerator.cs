@@ -1,6 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
-namespace Application.Common.Interfaces;
+namespace Application.Common.Auth;
 
 public interface IJwtTokenGenerator
 {

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Auth;
 using Application.Common.Interfaces;
 using Microsoft.Extensions.Logging;
 

@@ -1,6 +1,6 @@
 ﻿// Copyright(c) 2025 - Jun Dev.All rights reserved
 
-namespace Infrastructure.Authentication;
+namespace Infrastructure.Auth;
 
 public sealed class JwtSettings
 {

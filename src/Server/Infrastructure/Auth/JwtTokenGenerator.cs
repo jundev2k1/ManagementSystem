@@ -1,6 +1,7 @@
 ﻿// Copyright(c) 2025 - Jun Dev.All rights reserved
 
-using Application.Common.Interfaces;
+using Application.Common.Auth;
+using Infrastructure.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
