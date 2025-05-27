@@ -36,8 +36,10 @@ public sealed class TaskConfiguration : IEntityTypeConfiguration<TaskInfo>
 			.IsRequired()
 			.HasAnnotation("MaxValue", 100)
 			.HasDefaultValue(0);
-		builder.Property(t => t.StartDate);
-		builder.Property(t => t.DueDate);
+		builder.Property(t => t.StartDate)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
+		builder.Property(t => t.DueDate)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
 		builder.Property(t => t.Priority)
 			.IsRequired()
 			.HasConversion<int>()
@@ -49,6 +51,7 @@ public sealed class TaskConfiguration : IEntityTypeConfiguration<TaskInfo>
 			.HasMaxLength(4000)
 			.HasDefaultValue(string.Empty);
 		builder.Property(t => t.CreatedAt)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v)
 			.IsRequired()
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
 		builder.Property(t => t.CreatedBy)
@@ -56,6 +59,7 @@ public sealed class TaskConfiguration : IEntityTypeConfiguration<TaskInfo>
 			.HasMaxLength(60)
 			.HasDefaultValue(string.Empty);
 		builder.Property(t => t.LastModifiedAt)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v)
 			.IsRequired()
 			.HasDefaultValueSql("CURRENT_TIMESTAMP");
 		builder.Property(t => t.LastModifiedBy)

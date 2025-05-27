@@ -23,10 +23,12 @@ import BodyFilter from "./FilterActionGroup";
 import ModalLayout from "../Modal/ModalLayout";
 import { BodyUpsertTask, DeleteDialog} from "../Actions";
 import type { TaskModel } from "../../../api/services/task";
+import BodyDetailTask from "../Actions/BodyDetailTask";
 
 const BodyLayout = () => {
   const {
     data,
+    onRefreshList,
     page,
     onPageChange,
     pageSize,
@@ -108,9 +110,9 @@ const BodyLayout = () => {
                     <TableCell>{status}</TableCell>
                     <TableCell>
                       <Dropdown color="alternative" label="Action" dismissOnClick={false}>
-                        <DropdownItem onClick={() => onOpenModal(TaskPage.DETAIL, taskId)}>View</DropdownItem>
-                        <DropdownItem onClick={() => onOpenModal(TaskPage.EDIT, taskId)}>Edit</DropdownItem>
-                        <DropdownItem onClick={() => onOpenModal(TaskPage.DELETE, taskId)}>Delete</DropdownItem>
+                        <DropdownItem onClick={() => onOpenModal(TaskPage.DETAIL, taskId!)}>View</DropdownItem>
+                        <DropdownItem onClick={() => onOpenModal(TaskPage.EDIT, taskId!)}>Edit</DropdownItem>
+                        <DropdownItem onClick={() => onOpenModal(TaskPage.DELETE, taskId!)}>Delete</DropdownItem>
                       </Dropdown>
                     </TableCell>
                   </TableRow>
@@ -124,15 +126,15 @@ const BodyLayout = () => {
           </div>
         </div>
       </div>
-      <ModalLayout isOpen={isOpen} onClose={onCloseModal} title={getModalName(bodyPage)}>
+      <ModalLayout isOpen={isOpen} onClose={onCloseModal} title={getModalName(bodyPage)} isPopup={bodyPage === TaskPage.DELETE}>
         {bodyPage === TaskPage.CREATE ? (
-            <BodyUpsertTask onClose={onCloseModal} isCreate />
+            <BodyUpsertTask onRefreshList={onRefreshList} onClose={onCloseModal} isCreate />
           ) : bodyPage === TaskPage.EDIT ? (
-            <BodyUpsertTask onClose={onCloseModal} data={targetData} />
+            <BodyUpsertTask onRefreshList={onRefreshList} onClose={onCloseModal} data={targetData} />
           ) : bodyPage === TaskPage.DELETE ? (
-            <DeleteDialog taskId={targetData?.taskId || ''} onClose={onCloseModal} />
+            <DeleteDialog taskId={targetData?.taskId || ''} onRefreshList={onRefreshList} onClose={onCloseModal} />
           ) : bodyPage === TaskPage.DETAIL ? (
-            <>Detail Page</>
+            <BodyDetailTask data={targetData!} />
           ) : bodyPage === TaskPage.FILTER ? (
             <>Filter advanced Page</>
           ) : bodyPage === TaskPage.SORT ? (

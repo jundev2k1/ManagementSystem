@@ -2,7 +2,7 @@
 
 namespace WebAPI.Dtos;
 
-public sealed class RefreshTokenRequest
+public sealed class RefreshTokenRequestDto
 {
 	public string RefreshToken { get; set; } = string.Empty;
 }

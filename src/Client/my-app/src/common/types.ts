@@ -26,3 +26,10 @@ export interface SortItem {
   field: string;
   direction: "asc" | "desc";
 }
+
+export interface Entity {
+	createdAt?: string;
+	createdBy?: string;
+	lastModifiedAt?: string;
+	lastModifiedBy?: string;
+}

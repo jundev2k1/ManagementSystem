@@ -9,7 +9,7 @@ public sealed class Logout : ICarterModule
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
 		app.MapPost("/auth/logout", async (
-			[FromBody] RefreshTokenRequest request,
+			[FromBody] RefreshTokenRequestDto request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<Login> logger,
 			CancellationToken cancellationToken) =>

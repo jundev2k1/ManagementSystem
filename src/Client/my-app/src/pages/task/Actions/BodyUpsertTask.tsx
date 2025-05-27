@@ -7,26 +7,31 @@ import { intialTaskValues, validateSchema } from "./shared";
 import { formatDate } from "../../../common/utils/datetime";
 
 type BodyUpsertTaskProps = {
+  onRefreshList: () => void;
   onClose: () => void;
   data?: TaskModel;
   isCreate?: boolean;
 }
 
-const BodyUpsertTask = ({ onClose, data, isCreate = false }: BodyUpsertTaskProps) => {
+const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: BodyUpsertTaskProps) => {
   const dataInput: TaskModel = {
     ...data!,
-    startDate: data ? formatDate(data?.startDate, 'yyyy-mm-dd') : '',
-    dueDate: data ? formatDate(data?.dueDate, 'yyyy-mm-dd') : '',
-  }
+    startDate: data ? formatDate(data?.startDate, 'yyyy-MM-dd') : '',
+    dueDate: data ? formatDate(data?.dueDate, 'yyyy-MM-dd') : '',
+  };
   const onSubmit = async (values: TaskModel) => {
     const response = isCreate
-      ? await taskApi.create(values)
+      ? await taskApi.create({ ...values, taskId: null })
       : await taskApi.update(values);
 
-    toast.error(`${response.message}`);
-    if (!response.isSuccess) return;
+    if (!response.isSuccess) {
+      toast.error(`${response.message}`);
+      return;
+    }
 
     onClose();
+    onRefreshList();
+    toast.success(`${response.message}`);
   };
 
   return (

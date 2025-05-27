@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
 using Application.Features.Tasks.Commands.UpdateTask;
+using Application.Features.Tasks.Dtos;
 
 namespace WebAPI.Endpoints;
 
@@ -10,7 +11,7 @@ public sealed class UpdateTask : ICarterModule
 	{
 		app.MapPut("/tasks/{taskId:guid}", async (
 			[FromRoute] Guid taskId,
-			TaskInfo request,
+			TaskInfoRequestDto request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<CreateTask> logger,
 			CancellationToken cancellationToken) =>
@@ -21,7 +22,8 @@ public sealed class UpdateTask : ICarterModule
 				throw new BadRequestException("Task ID mismatch.");
 			}
 
-			var result = await sender.Send(new UpdateTaskCommand(request), cancellationToken);
+			var command = new UpdateTaskCommand(request.Adapt<TaskInfo>());
+			var result = await sender.Send(command, cancellationToken);
 			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();

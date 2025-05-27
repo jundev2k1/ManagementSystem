@@ -10,7 +10,7 @@ public sealed class GetTaskByCriteria : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapGet("/task", async (
+		app.MapGet("/tasks", async (
 			[AsParameters] SearchCriteriaRequest parameters,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<GetTaskByCriteria> logger,

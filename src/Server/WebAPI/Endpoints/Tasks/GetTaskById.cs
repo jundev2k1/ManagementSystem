@@ -8,7 +8,7 @@ public sealed class GetTaskById : ICarterModule
 {
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
-		app.MapGet("/task/{taskId:guid}", async (
+		app.MapGet("/tasks/{taskId:guid}", async (
 			[FromRoute] Guid taskId,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<GetTaskById> logger,

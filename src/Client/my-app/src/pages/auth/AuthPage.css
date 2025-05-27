@@ -8,8 +8,8 @@
 #sign-in-wrapper #sub-content {
     background: url('https://wallpaperaccess.com/full/704467.jpg');
     background-blend-mode: lighten;
-    background-size: cover;
-    background-position: -860px 50px;
+    background-size: 1680px;
+    background-position: -65% 100px;
     box-shadow: -6px 6px 16px #8b8b8b;
 }
 

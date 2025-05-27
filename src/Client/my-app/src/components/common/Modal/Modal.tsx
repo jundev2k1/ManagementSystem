@@ -14,6 +14,7 @@ interface CommonModalProps {
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl";
   children: React.ReactNode;
   footer?: React.ReactNode;
+  isPopup?: boolean;
 }
 
 const CommonModal = ({
@@ -23,9 +24,10 @@ const CommonModal = ({
   size = "4xl",
   children,
   footer,
+  isPopup = false,
 }: CommonModalProps) => {
   return (
-    <Modal show={isOpen} onClose={onClose} size={size}>
+    <Modal show={isOpen} onClose={onClose} size={size} position="center" popup={isPopup}>
       <ModalHeader>{title}</ModalHeader>
       <ModalBody>{children}</ModalBody>
       {footer && <ModalFooter>{footer}</ModalFooter>}

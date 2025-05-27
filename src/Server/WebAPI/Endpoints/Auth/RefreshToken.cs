@@ -10,7 +10,7 @@ public sealed class RefreshToken : ICarterModule
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
 		app.MapPost("/auth/refresh-token", async (
-			[FromBody] RefreshTokenRequest request,
+			[FromBody] RefreshTokenRequestDto request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<Login> logger,
 			CancellationToken cancellationToken) =>

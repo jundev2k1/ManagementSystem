@@ -10,7 +10,7 @@ public sealed class Login : ICarterModule
 	public void AddRoutes(IEndpointRouteBuilder app)
 	{
 		app.MapPost("/auth/login", async (
-			[FromBody] AuthRequest request,
+			[FromBody] AuthRequestDto request,
 			[FromServices] ISender sender,
 			[FromServices] ILogger<Login> logger,
 			CancellationToken cancellationToken) =>

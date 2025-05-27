@@ -1,7 +1,9 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-export interface TaskModel {
-  taskId: string;
+import type { Entity } from "../../../common/types";
+
+export interface TaskModel extends Entity {
+  taskId: string | null;
   title: string;
   description: string;
   status: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
@@ -11,9 +13,5 @@ export interface TaskModel {
   priority: 0 | 1 | 2 | 3 | 4;
   assignedTo: string;
   assignedBy: string;
-  note: string;
-	createdAt: string;
-	createdBy: string;
-	lastModifiedAt: string;
-	lastModifiedBy: string;
+  note?: string;
 }

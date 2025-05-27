@@ -6,12 +6,12 @@ import type { TaskModel } from "./types";
 import { toParameters } from "../../../common/utils/mapper";
 
 export const taskApi = {
-  getById: (id: string) => api.get<TaskModel>(`/task/${id}`),
+  getById: (id: string) => api.get<TaskModel>(`/tasks/${id}`),
   getByCriteria: (request: SearchRequest) => {
     const params = toParameters(request);
-    return api.get<SearchResult<TaskModel>>(`/task`, { params: params });
+    return api.get<SearchResult<TaskModel>>(`/tasks`, { params: params });
   },
-  create: (request: TaskModel) => api.post<string>('/task', request),
-  update: (request: TaskModel) => api.put<string>(`/task/${request.taskId}`, request),
-  delete: (id: string) => api.delete<void>(`/task/${id}`),
+  create: (request: TaskModel) => api.post<string>('/tasks', request),
+  update: (request: TaskModel) => api.put<string>(`/tasks/${request.taskId}`, request),
+  delete: (id: string) => api.delete<void>(`/tasks/${id}`),
 };

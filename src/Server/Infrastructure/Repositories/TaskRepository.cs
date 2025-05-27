@@ -66,6 +66,7 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskReposi
 		targetTask.Note = task.Note;
 		targetTask.LastModifiedAt = DateTime.UtcNow;
 		targetTask.LastModifiedBy = task.LastModifiedBy;
+		dbContext.Update(targetTask);
 	}
 
 	public async Task DeleteTaskAsync(Guid id, CancellationToken cancellationToken = default)

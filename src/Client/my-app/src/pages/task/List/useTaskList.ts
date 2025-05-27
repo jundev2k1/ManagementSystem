@@ -20,7 +20,7 @@ export const getModalName = (targetPage: string) => {
     case TaskPage.DETAIL: return "Task information";
     case TaskPage.CREATE: return "Create new task";
     case TaskPage.EDIT: return "Edit task";
-    case TaskPage.DELETE: return "Are you sure?";
+    case TaskPage.DELETE: return "";
     case TaskPage.FILTER: return "Advanced filters";
     case TaskPage.SORT: return "Sorting";
     default: return "";
@@ -35,6 +35,7 @@ export const useTaskList = () => {
   const [pageSize, setPageSize] = useState<number>(20);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<SearchResult<TaskModel>>(initSearchResult);
+  const [refreshData, setRefreshData] = useState(0);
 
   useEffect(() => {
     taskApi
@@ -43,11 +44,12 @@ export const useTaskList = () => {
         setData(res.data!);
         setIsLoading(false);
       });
-  }, [filters, sorts, page, pageSize]);
+  }, [filters, sorts, page, pageSize, refreshData]);
 
   return {
     isLoading,
     data,
+    onRefreshList: () => setRefreshData(refreshData + 1),
     keyword,
     onKeywordChange: setKeyword,
     filters,

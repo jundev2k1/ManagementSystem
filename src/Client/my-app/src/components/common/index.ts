@@ -15,6 +15,7 @@ export {
   Spinner,
   TextInput,
   Datepicker,
+  Label,
  } from "flowbite-react";
 export * from "./Button";
 export * from "./Input";
