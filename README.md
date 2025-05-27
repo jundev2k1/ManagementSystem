@@ -62,9 +62,8 @@ docker exec -it - applicationdb psql -U postgres
     + Một số chức năng đã thực hiện: Search criteria (linh hoạt, nhiều giá trị), Error handling, CRUD for task entity, migration postgre
     + Dự định thực hiện: Search full-text trong entity, Caching, Logout (Refresh token), Phân quyền User, unit Test,...
 - Client:
-    + Xử lý cơ bản giao diện UI (Chưa hoàn chỉnh)
-    + Hiện xử lý giao tiếp với server đang gặp vấn đề và chưa giải quyết xong, do đó đang set dummy dữ liệu để chạy được trên localhost
-    + Tại UI, chỉ cần nhập để không bị lỗi validate là có thể next sang trang kế tiếp được
+    + Công nghệ: ReactJs, Redux, Flowbite React, Tailwind css
+    + Một số chức năng đã thực hiện: Auth, giao diện UI task list
   
 ## 📝 Notes
 
