@@ -11,4 +11,7 @@ export const taskApi = {
     const params = toParameters(request);
     return api.get<SearchResult<TaskModel>>(`/task`, { params: params });
   },
+  create: (request: TaskModel) => api.post<string>('/task', request),
+  update: (request: TaskModel) => api.put<string>(`/task/${request.taskId}`, request),
+  delete: (id: string) => api.delete<void>(`/task/${id}`),
 };

@@ -3,7 +3,7 @@
 export interface SearchResult<T> {
     items: T[],
     totalItems: number,
-    totalPage: number,
+    totalPages: number,
     pageSize: number,
     pageNumber: number,
 }

@@ -5,7 +5,30 @@ import type { FilterItem, SearchResult, SortItem } from "../../../common/types";
 import { taskApi, type TaskModel } from "../../../api/services/task";
 import { initSearchResult } from "../../../common/data";
 
+export const TaskPage = Object.freeze({
+  BLANK: 'blank',
+  DETAIL: "detail",
+  CREATE: "create",
+  EDIT: "edit",
+  DELETE: "delete",
+  FILTER: "filter",
+  SORT: "sort",
+});
+
+export const getModalName = (targetPage: string) => {
+  switch (targetPage) {
+    case TaskPage.DETAIL: return "Task information";
+    case TaskPage.CREATE: return "Create new task";
+    case TaskPage.EDIT: return "Edit task";
+    case TaskPage.DELETE: return "Are you sure?";
+    case TaskPage.FILTER: return "Advanced filters";
+    case TaskPage.SORT: return "Sorting";
+    default: return "";
+  }
+}
+
 export const useTaskList = () => {
+  const [keyword, setKeyword] = useState<string>('');
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [sorts, setSorts] = useState<SortItem[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -18,13 +41,15 @@ export const useTaskList = () => {
       .getByCriteria({ filters, sorts, keyword: "", page, pageSize })
       .then((res) => {
         setData(res.data!);
-        setIsLoading(true);
+        setIsLoading(false);
       });
   }, [filters, sorts, page, pageSize]);
 
   return {
     isLoading,
     data,
+    keyword,
+    onKeywordChange: setKeyword,
     filters,
     onFilterChange: setFilters,
     sorts,

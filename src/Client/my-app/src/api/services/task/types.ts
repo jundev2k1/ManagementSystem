@@ -12,8 +12,8 @@ export interface TaskModel {
   assignedTo: string;
   assignedBy: string;
   note: string;
-	CreatedAt: string;
-	CreatedBy: string;
-	LastModifiedAt: string;
-	LastModifiedBy: string;
+	createdAt: string;
+	createdBy: string;
+	lastModifiedAt: string;
+	lastModifiedBy: string;
 }

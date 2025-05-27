@@ -5,7 +5,7 @@ import type { SearchResult } from "./types";
 export const initSearchResult: SearchResult<any> = {
     items: [],
     totalItems: 0,
-    totalPage: 0,
+    totalPages: 0,
     pageNumber: 1,
     pageSize: 20,
 }

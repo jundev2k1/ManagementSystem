@@ -13,6 +13,8 @@ export {
   Pagination,
   Progress,
   Spinner,
+  TextInput,
+  Datepicker,
  } from "flowbite-react";
 export * from "./Button";
 export * from "./Input";
