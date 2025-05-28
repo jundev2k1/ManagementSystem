@@ -1,8 +1,9 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-import { Label } from "../../../components/common";
 import { type TaskModel } from "../../../api/services/task";
 import { formatDate } from "../../../common/utils/datetime";
+import { Label } from "../../../components/common";
+import { StatusBadge as TaskStatusBadge } from "../Shared";
 
 type BodyDetailTaskProps = {
   data: TaskModel;
@@ -37,7 +38,9 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
         </div>
         <div className="col-span-3">
           <Label>Status</Label>
-          <p>{status}</p>
+          <p>
+            <TaskStatusBadge status={status} />
+          </p>
         </div>
         <div className="col-span-3">
           <Label>Start Date</Label>

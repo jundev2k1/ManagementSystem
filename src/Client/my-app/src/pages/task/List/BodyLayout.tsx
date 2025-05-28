@@ -20,6 +20,7 @@ import {
   TableRow,
 } from "../../../components/common";
 import { FilterForm, SortForm } from "../../../components/form";
+import { StatusBadge as TaskStatusBadge } from "../Shared";
 import { BodyUpsertTask, DeleteDialog } from "../Actions";
 import BodyDetailTask from "../Actions/BodyDetailTask";
 import ModalLayout from "../Modal/ModalLayout";
@@ -84,7 +85,7 @@ const BodyLayout = () => {
               <TableRow>
                 <TableHeadCell className="py-4">Task info</TableHeadCell>
                 <TableHeadCell className="w-[25%]">Progress</TableHeadCell>
-                <TableHeadCell className="w-[15%]">Status</TableHeadCell>
+                <TableHeadCell className="w-[15%] text-center">Status</TableHeadCell>
                 <TableHeadCell className="w-[10%]"></TableHeadCell>
               </TableRow>
             </TableHead>
@@ -97,11 +98,11 @@ const BodyLayout = () => {
                     </TableCell>
                   </TableRow>
                 )
-                : (true)
+                : (data.totalItems === 0)
                 ? (
                   <TableRow>
                     <TableCell className="text-center py-[32px]" colSpan={4}>
-                      <p className="font-bold text-lg">No results found</p>
+                      <p className="font-bold text-md">No results found</p>
                     </TableCell>
                   </TableRow>
                 )
@@ -117,7 +118,9 @@ const BodyLayout = () => {
                         <p>Start date: {formatDate(dueDate)}</p>
                         <Progress className="mt-2" color="indigo" progress={progress} size="lg" labelProgress />
                       </TableCell>
-                      <TableCell>{status}</TableCell>
+                      <TableCell className="text-center">
+                        <TaskStatusBadge status={status} />
+                      </TableCell>
                       <TableCell>
                         <Dropdown color="alternative" label="Action" dismissOnClick={false}>
                           <DropdownItem onClick={() => onOpenModal(TaskPage.DETAIL, taskId!)}>View</DropdownItem>

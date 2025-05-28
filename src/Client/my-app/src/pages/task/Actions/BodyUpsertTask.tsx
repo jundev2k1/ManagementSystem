@@ -1,28 +1,30 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { Form, Formik } from "formik";
-import { Button, Input, toast } from "../../../components/common";
 import { taskApi, type TaskModel } from "../../../api/services/task";
-import { intialTaskValues, validateSchema } from "./shared";
 import { formatDate } from "../../../common/utils/datetime";
+import { Button, Input, toast } from "../../../components/common";
+import { StatusInput } from "../Shared";
+import { intialTaskValues, validateSchema } from "./shared";
 
 type BodyUpsertTaskProps = {
   onRefreshList: () => void;
   onClose: () => void;
   data?: TaskModel;
   isCreate?: boolean;
-}
+};
 
 const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: BodyUpsertTaskProps) => {
   const dataInput: TaskModel = {
     ...data!,
-    startDate: data ? formatDate(data?.startDate, 'yyyy-MM-dd') : '',
-    dueDate: data ? formatDate(data?.dueDate, 'yyyy-MM-dd') : '',
+    startDate: data ? formatDate(data?.startDate, "yyyy-MM-dd") : "",
+    dueDate: data ? formatDate(data?.dueDate, "yyyy-MM-dd") : "",
   };
   const onSubmit = async (values: TaskModel) => {
+    const taskStatus = Number(`${values.status}`) as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
     const response = isCreate
-      ? await taskApi.create({ ...values, taskId: null })
-      : await taskApi.update(values);
+      ? await taskApi.create({ ...values, taskId: null, status: taskStatus })
+      : await taskApi.update({ ...values, status: taskStatus });
 
     if (!response.isSuccess) {
       toast.error(`${response.message}`);
@@ -53,7 +55,7 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
               <Input label="Progress (%)" name="progress" type="number" />
             </div>
             <div className="col-span-3">
-              <Input label="Status" name="status" type="number" />
+              <StatusInput label="Status" name="status" />
             </div>
             <div className="col-span-3">
               <Input label="Start Date" name="startDate" type="date" />
