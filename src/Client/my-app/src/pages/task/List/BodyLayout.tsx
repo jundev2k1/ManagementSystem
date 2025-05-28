@@ -97,6 +97,14 @@ const BodyLayout = () => {
                     </TableCell>
                   </TableRow>
                 )
+                : (true)
+                ? (
+                  <TableRow>
+                    <TableCell className="text-center py-[32px]" colSpan={4}>
+                      <p className="font-bold text-lg">No results found</p>
+                    </TableCell>
+                  </TableRow>
+                )
                 : (
                   data.items.map(({ taskId, title, description, startDate, dueDate, progress, status }, index) => (
                     <TableRow key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
