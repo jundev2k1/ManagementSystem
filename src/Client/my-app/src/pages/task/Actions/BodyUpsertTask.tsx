@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import { taskApi, type TaskModel } from "../../../api/services/task";
 import { formatDate } from "../../../common/utils/datetime";
 import { Button, Input, toast } from "../../../components/common";
-import { StatusInput } from "../Shared";
+import { ProgressInput, StatusInput } from "../Shared";
 import { intialTaskValues, validateSchema } from "./shared";
 
 type BodyUpsertTaskProps = {
@@ -52,7 +52,7 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
               <Input label="Description" name="description" />
             </div>
             <div className="col-span-3">
-              <Input label="Progress (%)" name="progress" type="number" />
+              <ProgressInput label="Progress (%)" name="progress" />
             </div>
             <div className="col-span-3">
               <StatusInput label="Status" name="status" />

@@ -2,6 +2,7 @@
 
 import * as Yup from "yup";
 import type { TaskModel } from "../../../api/services/task";
+import { formatDate, getToday, getTomorrow } from "../../../common/utils/datetime";
 
 export const intialTaskValues: TaskModel = {
   taskId: "",
@@ -9,8 +10,8 @@ export const intialTaskValues: TaskModel = {
   description: "",
   status: 0,
   progress: 0,
-  startDate: "",
-  dueDate: "",
+  startDate: formatDate(getToday(), "yyyy-MM-dd"),
+  dueDate: formatDate(getTomorrow(), "yyyy-MM-dd"),
   priority: 0,
   assignedTo: "",
   assignedBy: "",
@@ -27,7 +28,7 @@ export const validateSchema = Yup.object({
     .max(200, "Title must be at most 200 characters"),
   description: Yup.string().max(
     4000,
-    "Description must be at most 4000 characters"
+    "Description must be at most 4000 characters",
   ),
   status: Yup.number()
     .required("Status is required")
