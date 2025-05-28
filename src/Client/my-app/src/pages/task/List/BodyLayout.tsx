@@ -124,6 +124,7 @@ const BodyLayout = () => {
                       <TableCell>
                         <Dropdown color="alternative" label="Action" dismissOnClick={false}>
                           <DropdownItem onClick={() => onOpenModal(TaskPage.DETAIL, taskId!)}>View</DropdownItem>
+                          <DropdownItem onClick={() => onOpenModal(TaskPage.CREATE, taskId!)}>Copy</DropdownItem>
                           <DropdownItem onClick={() => onOpenModal(TaskPage.EDIT, taskId!)}>Edit</DropdownItem>
                           <DropdownItem onClick={() => onOpenModal(TaskPage.DELETE, taskId!)}>Delete</DropdownItem>
                         </Dropdown>
@@ -152,7 +153,7 @@ const BodyLayout = () => {
         isPopup={bodyPage === TaskPage.DELETE}
       >
         {bodyPage === TaskPage.CREATE
-          ? <BodyUpsertTask onRefreshList={onRefreshList} onClose={onCloseModal} isCreate />
+          ? <BodyUpsertTask onRefreshList={onRefreshList} onClose={onCloseModal} data={targetData} isCreate />
           : bodyPage === TaskPage.EDIT
           ? <BodyUpsertTask onRefreshList={onRefreshList} onClose={onCloseModal} data={targetData} />
           : bodyPage === TaskPage.DELETE

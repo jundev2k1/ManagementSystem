@@ -6,7 +6,6 @@ const PageLayout = () => {
   return (
     <>
       <h1 className="text-2xl text-bold mb-3">Task management</h1>
-
       <BodyTaskLayout />
     </>
   );

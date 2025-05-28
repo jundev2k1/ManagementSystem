@@ -38,7 +38,7 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
 
   return (
     <Formik
-      initialValues={!isCreate ? dataInput || intialTaskValues : intialTaskValues}
+      initialValues={data ? dataInput : intialTaskValues}
       validationSchema={validateSchema}
       onSubmit={onSubmit}
     >
