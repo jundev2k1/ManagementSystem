@@ -59,7 +59,7 @@ const SortFormLayout = ({
   };
 
   const RenderSelectFieldOptions = (field: string, targetIndex: number) => {
-    const isDisabled = (item: SortOptions) => item.field === field || defaultFields.includes(item.field);
+    const isDisabled = (item: SortOptions) => item.field === field || filterRows.some(row => row.field === item.field);
     return (
       <>
         <DropdownItem className="text-gray-400" value="" disabled>
@@ -89,7 +89,7 @@ const SortFormLayout = ({
     setFilterRows([...filterRows]);
   };
 
-  const RenderOperatorOptions = (option: SortItem, targetIndex: number) => {
+  const RenderDirectionOptions = (option: SortItem, targetIndex: number) => {
     const isDisabled = (direction: SortDirection) => direction === option.direction;
     return (
       <>
@@ -161,7 +161,7 @@ const SortFormLayout = ({
               label={displayDirection[row.direction] || "Select..."}
               disabled={isRowDisabled(row)}
             >
-              {RenderOperatorOptions(row, index)}
+              {RenderDirectionOptions(row, index)}
             </Dropdown>
           </div>
           <div className="col-span-1">

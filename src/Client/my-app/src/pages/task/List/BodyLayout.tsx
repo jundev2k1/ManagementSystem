@@ -68,10 +68,8 @@ const BodyLayout = () => {
           <BodyFilter
             keyword={keyword}
             onKeywordChange={onKeywordChange}
-            filters={filters}
-            onFilterChange={onFilterChange}
-            sorts={sorts}
-            onSortChange={onSortChange}
+            filterCount={filters.length}
+            sortCount={sorts.length}
             onOpenModal={onOpenModal}
           />
           <Button className="flex gap-2 cursor-pointer" color="blue" onClick={() => onOpenModal(TaskPage.CREATE)}>

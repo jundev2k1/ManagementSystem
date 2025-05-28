@@ -3,25 +3,21 @@
 import { useState } from "react";
 import { MdFilterAlt } from "react-icons/md";
 import { FaSortAmountDownAlt } from "react-icons/fa";
-import { Button, TextInput } from "../../../components/common";
-import type { FilterItem, SortItem } from "../../../common/types";
+import { TextInput } from "../../../components/common";
 import { TaskPage } from "../List/useTaskList";
+import { BadgeButton } from "../../../components/ui";
 
 interface BodyFilterProps {
-  filters: FilterItem[];
-  onFilterChange: (filters: FilterItem[]) => void;
-  sorts: SortItem[];
-  onSortChange: (sorts: SortItem[]) => void;
+  filterCount: number;
+  sortCount: number;
   keyword: string;
   onKeywordChange: (keyword: string) => void;
   onOpenModal: (targetPage: string) => void;
 }
 
 const BodyFilter = ({
-  filters,
-  onFilterChange,
-  sorts,
-  onSortChange,
+  filterCount,
+  sortCount,
   keyword,
   onKeywordChange,
   onOpenModal,
@@ -35,11 +31,6 @@ const BodyFilter = ({
     onKeywordChange(input.value);
   };
 
-  console.log(filters);
-  console.log(onFilterChange);
-  console.log(sorts);
-  console.log(onSortChange);
-
   return (
     <>
       <TextInput
@@ -48,20 +39,12 @@ const BodyFilter = ({
         value={inputValue}
         placeholder="Search..."
       />
-      <Button
-        className="p-3"
-        color="alternative"
-        onClick={() => onOpenModal(TaskPage.FILTER)}
-      >
+      <BadgeButton className="p-3" count={filterCount} onClick={() => onOpenModal(TaskPage.FILTER)}>
         <MdFilterAlt />
-      </Button>
-      <Button
-        className="p-3"
-        color="alternative"
-        onClick={() => onOpenModal(TaskPage.SORT)}
-      >
+      </BadgeButton>
+      <BadgeButton className="p-3" count={sortCount} onClick={() => onOpenModal(TaskPage.SORT)}>
         <FaSortAmountDownAlt />
-      </Button>
+      </BadgeButton>
     </>
   );
 };
