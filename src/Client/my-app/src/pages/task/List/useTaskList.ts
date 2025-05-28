@@ -1,12 +1,16 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { useEffect, useState } from "react";
-import type { FilterItem, SearchResult, SortItem } from "../../../common/types";
+import { useSelector } from "react-redux";
 import { taskApi, type TaskModel } from "../../../api/services/task";
 import { initSearchResult } from "../../../common/data";
+import type { FilterItem, SearchResult, SortItem } from "../../../common/types";
+import type { FilterOptions } from "../../../components/form/FilterForm/types";
+import type { SortOptions } from "../../../components/form/SortForm/types";
+import type { RootState } from "../../../store/store";
 
 export const TaskPage = Object.freeze({
-  BLANK: 'blank',
+  BLANK: "blank",
   DETAIL: "detail",
   CREATE: "create",
   EDIT: "edit",
@@ -17,19 +21,84 @@ export const TaskPage = Object.freeze({
 
 export const getModalName = (targetPage: string) => {
   switch (targetPage) {
-    case TaskPage.DETAIL: return "Task information";
-    case TaskPage.CREATE: return "Create new task";
-    case TaskPage.EDIT: return "Edit task";
-    case TaskPage.DELETE: return "";
-    case TaskPage.FILTER: return "Advanced filters";
-    case TaskPage.SORT: return "Sorting";
-    default: return "";
+    case TaskPage.DETAIL:
+      return "Task Information";
+    case TaskPage.CREATE:
+      return "Create New Task";
+    case TaskPage.EDIT:
+      return "Edit Task";
+    case TaskPage.DELETE:
+      return "";
+    case TaskPage.FILTER:
+      return "Advanced Filters";
+    case TaskPage.SORT:
+      return "Sorting";
+    default:
+      return "";
   }
-}
+};
+
+export const filterSettings: FilterOptions[] = [
+  {
+    field: "title",
+    display: "Title Task",
+    type: "text",
+  },
+  {
+    field: "startDate",
+    display: "Start Date",
+    type: "datetime",
+  },
+  {
+    field: "dueDate",
+    display: "Due Date",
+    type: "datetime",
+  },
+  {
+    field: "progress",
+    display: "Task Progress",
+    type: "number",
+  },
+  {
+    field: "createdBy",
+    display: "Created By",
+    type: "text",
+    isDefault: true,
+  },
+];
+
+export const sortSettings: SortOptions[] = [
+  {
+    field: "title",
+    display: "Title Task",
+    defaultDirection: "asc",
+  },
+  {
+    field: "startDate",
+    display: "Start Date",
+  },
+  {
+    field: "endDate",
+    display: "End Date",
+  },
+  {
+    field: "process",
+    display: "Task Process",
+  }
+];
 
 export const useTaskList = () => {
-  const [keyword, setKeyword] = useState<string>('');
-  const [filters, setFilters] = useState<FilterItem[]>([]);
+  const auth = useSelector((state: RootState) => state.auth.auth);
+  const defaultFilters: FilterItem[] = [
+    {
+      field: "createdBy",
+      operator: "eq",
+      value: auth?.userId || "",
+    },
+  ];
+
+  const [keyword, setKeyword] = useState<string>("");
+  const [filters, setFilters] = useState<FilterItem[]>(defaultFilters);
   const [sorts, setSorts] = useState<SortItem[]>([]);
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(20);

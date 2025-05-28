@@ -16,15 +16,17 @@ export interface SearchRequest {
   pageSize: number;
 }
 
+export type FilterOperator = "eq" | "ne" | "gt" | "gte" | "lt" | "lte" | "c" | "sw" | "ew" | "";
 export interface FilterItem {
   field: string;
-  operator: "eq" | "ne" | "gt" | "gte" | "lt" | "lte" | "c" | "sw" | "ew";
+  operator: FilterOperator;
   value: any;
 }
 
+export type SortDirection = "asc" | "desc" | "";
 export interface SortItem {
   field: string;
-  direction: "asc" | "desc";
+  direction: SortDirection;
 }
 
 export interface Entity {

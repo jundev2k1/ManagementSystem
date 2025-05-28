@@ -5,7 +5,7 @@ import type { SearchRequest } from "../types";
 
 export const toParameters = ({ filters, sorts, page,  pageSize }:SearchRequest): ParameterInfo[] => {
   const filterParams = filters
-    .filter((item) => item.value)
+    .filter((item) => item.field && item.operator && item.value)
     .map(({ field, operator, value }) => ({
       key: "filter",
       value: `${field}~${operator}~${value}`,

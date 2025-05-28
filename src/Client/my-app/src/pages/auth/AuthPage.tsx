@@ -1,13 +1,10 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { useState } from "react";
-import { SignInForm } from "../../components/form/SignInForm";
 import { Button, toast } from "../../components/common";
-import './AuthPage.css';
+import "./AuthPage.css";
 import { useAuth } from "../../features";
-import type { SignInFormInput } from "../../components/form/SignInForm/signInForm.logic";
-import { SignUpForm } from "../../components/form/SignUpForm";
-import type { SignUpFormInput } from "../../components/form/SignUpForm/signUpForm.logic";
+import { SignUpForm, SignInForm, type SignUpFormInput, type SignInFormInput } from "../../components/form";
 
 const AuthPage = () => {
   const [isSignInPage, setIsSignInPage] = useState(true);
