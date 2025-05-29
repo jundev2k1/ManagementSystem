@@ -62,7 +62,7 @@ export const filterSettings: FilterOptions[] = [
   {
     field: "createdBy",
     display: "Created By",
-    type: "text",
+    type: "user",
     isDefault: true,
   },
 ];

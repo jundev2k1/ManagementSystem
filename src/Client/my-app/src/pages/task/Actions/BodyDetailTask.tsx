@@ -3,7 +3,7 @@
 import { type TaskModel } from "../../../api/services";
 import { formatDate } from "../../../common/utils/datetime";
 import { Label } from "../../../components/common";
-import { UserBadge } from "../../user";
+import { UserPicker } from "../../user";
 import { StatusBadge as TaskStatusBadge } from "../Shared";
 
 type BodyDetailTaskProps = {
@@ -71,12 +71,12 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
         </div>
         <div className="col-span-3">
           <p>
-            <UserBadge label="Assigned By" value={assignedBy || ''} />
+            <UserPicker label="Assigned By" defaultValue={assignedBy} isView />
           </p>
         </div>
         <div className="col-span-3">
           <p>
-            <UserBadge label="Assigned To" value={assignedTo || ''} />
+            <UserPicker label="Assigned To" defaultValue={assignedTo} isView />
           </p>
         </div>
         <div className="col-span-6">

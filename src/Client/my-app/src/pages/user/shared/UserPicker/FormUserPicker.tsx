@@ -1,32 +1,34 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { Avatar, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useField, useFormikContext } from "formik";
 import { useEffect, useState } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 import { userApi, type UserModel } from "../../../../api/services";
 
-type UserPickerProps = {
+type FormUserPickerProps = {
+  name: string;
   label?: string;
-  defaultValue?: string;
-  onChangeValue?: (value: string) => void;
-  isView?: boolean;
 };
 
-const UserPicker = ({ label = "", defaultValue = "", isView = false, onChangeValue }: UserPickerProps) => {
+const FormUserPicker = ({ name, label = "" }: FormUserPickerProps) => {
+  const [field, meta] = useField<string>(name);
+  const { setFieldValue } = useFormikContext();
   const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<UserModel[]>([]);
   const [loading, setLoading] = useState(false);
+  const showError = meta.touched && meta.error;
 
   // Init fetch user
   useEffect(() => {
-    if (!selectedUser && defaultValue) {
+    if (!selectedUser && field.value) {
       setLoading(true);
-      userApi.getById(defaultValue)
+      userApi.getById(field.value)
         .then((res) => setSelectedUser(res.data))
         .finally(() => setLoading(false));
     }
-  }, [defaultValue]);
+  }, [field.value]);
 
   // Fetch Suggestion users
   useEffect(() => {
@@ -44,14 +46,14 @@ const UserPicker = ({ label = "", defaultValue = "", isView = false, onChangeVal
 
   const handleSelect = (user: UserModel) => {
     setSelectedUser(user);
-    onChangeValue?.(user.userId || '');
+    setFieldValue(name, user.userId);
     setSuggestions([]);
     setQuery("");
   };
 
   const handleClear = () => {
     setSelectedUser(null);
-    onChangeValue?.("");
+    setFieldValue(name, "");
   };
 
   const handleCloseSuggestion = () => {
@@ -59,7 +61,7 @@ const UserPicker = ({ label = "", defaultValue = "", isView = false, onChangeVal
       setSuggestions([]);
       clearTimeout(timeout);
     }, 300);
-  };
+  }
 
   return (
     <div className="relative">
@@ -69,11 +71,9 @@ const UserPicker = ({ label = "", defaultValue = "", isView = false, onChangeVal
           <div className="flex items-center space-x-3 p-2 rounded-md">
             <Avatar img={selectedUser.avatar} rounded />
             <span className="font-medium">{selectedUser.fullName}</span>
-            {!isView && (
-              <Button size="lg" color="failure" onClick={handleClear}>
-                <FaCircleXmark />
-              </Button>
-            )}
+            <Button size="lg" color="failure" onClick={handleClear}>
+              <FaCircleXmark />
+            </Button>
           </div>
         )
         : (
@@ -106,10 +106,13 @@ const UserPicker = ({ label = "", defaultValue = "", isView = false, onChangeVal
                 ))}
               </ul>
             )}
+            {showError && (
+              <p className="mt-1 text-sm text-red-600">{meta.error}</p>
+            )}
           </div>
         )}
     </div>
   );
 };
 
-export default UserPicker;
+export default FormUserPicker;

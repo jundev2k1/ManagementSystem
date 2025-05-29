@@ -6,7 +6,7 @@ import { formatDate } from "../../../common/utils/datetime";
 import { Button, Input, toast } from "../../../components/common";
 import { ProgressInput, StatusInput } from "../Shared";
 import { createTaskRequest, intialTaskValues, validateSchema } from "./shared";
-import { UserPicker } from "../../user";
+import { FormUserPicker } from "../../user";
 
 type BodyUpsertTaskProps = {
   onRefreshList: () => void;
@@ -72,10 +72,10 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
               <Input label="Actual End Date" name="actualEndDate" type="date" />
             </div>
             <div className="col-span-3">
-              <UserPicker label="Assigned To" name="assignedTo" />
+              <FormUserPicker label="Assigned To" name="assignedTo" />
             </div>
             <div className="col-span-3">
-              <UserPicker label="Assigned By" name="assignedBy" />
+              <FormUserPicker label="Assigned By" name="assignedBy" />
             </div>
             <div className="col-span-6">
               <Input label="Note" name="note" />

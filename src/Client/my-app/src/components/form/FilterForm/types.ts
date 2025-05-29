@@ -8,6 +8,7 @@ export const filterOperator: Record<string, FilterOperator[]> = {
   DATETIME: ["gt", "gte", "lt", "lte"],
   BOOLEAN: ["eq", "ne"],
   ENUM: ["eq", "ne"],
+  USER: ["eq", "ne"],
 };
 
 export type FilterInputType =
@@ -15,7 +16,8 @@ export type FilterInputType =
   | "number"
   | "datetime"
   | "boolean"
-  | "enum";
+  | "enum"
+  | "user";
 
 export interface FilterOptions {
   field: string;

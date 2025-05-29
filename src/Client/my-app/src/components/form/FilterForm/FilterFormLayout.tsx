@@ -6,13 +6,14 @@ import { BsInfoCircle } from "react-icons/bs";
 import { FaPlus, FaRegTrashCan } from "react-icons/fa6";
 import { RiResetLeftFill } from "react-icons/ri";
 import type { FilterItem, FilterOperator } from "../../../common/types";
+import { UserPicker } from "../../../pages/user";
 import { filterOperator, type FilterOptions } from "./types";
 
 const getOperatorOptions = (source: FilterOptions[], field: string) => {
   const targetOption = source.find((item) => item.field === field);
   if (!targetOption) return [];
 
-  let datasource = [];
+  let datasource: FilterOperator[] = [];
   switch (targetOption.type) {
     case "text":
       datasource = filterOperator.TEXT;
@@ -32,6 +33,10 @@ const getOperatorOptions = (source: FilterOptions[], field: string) => {
 
     case "enum":
       datasource = filterOperator.ENUM;
+      break;
+
+    case "user":
+      datasource = filterOperator.USER;
       break;
   }
   return datasource;
@@ -176,6 +181,13 @@ const FilterFormLayout = ({
             disabled={isRowDisabled(row) || !option?.type}
           />
         )}
+        {option?.type === "user" && (
+          <UserPicker
+            defaultValue={row.value}
+            onChangeValue={(value) => onValueChange(value, targetIndex)}
+            isView={isRowDisabled(row) || !option?.type}
+          />
+        )}
       </div>
     );
   };
@@ -213,6 +225,7 @@ const FilterFormLayout = ({
       </div>
       {filterRows.map((row, index) => (
         <div
+          key={index}
           className={`grid grid-cols-12 gap-4 ${
             (initDataCount > 0) && (initDataCount === (index + 1)) ? "mb-5" : "mb-2"
           }`}

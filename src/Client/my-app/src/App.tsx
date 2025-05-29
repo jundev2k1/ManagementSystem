@@ -18,9 +18,9 @@ function App() {
     if (isAuthenticated) return;
 
     authApi.refresh()?.then(res => {
-      if (!res) return;
+      if (!res || !res.data) return;
 
-      const { userId, email, firstName, lastName, roles, accessToken, refreshToken } = res.data!;
+      const { userId, email, firstName, lastName, roles, accessToken, refreshToken } = res.data;
       setToken(accessToken, refreshToken);
       dispatch(setCredentials({ auth: { userId, email, firstName, lastName, roles }}));
     });
