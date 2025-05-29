@@ -1,11 +1,12 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { Form, Formik } from "formik";
-import { taskApi, type TaskModel } from "../../../api/services/task";
+import { taskApi, type TaskModel } from "../../../api/services";
 import { formatDate } from "../../../common/utils/datetime";
 import { Button, Input, toast } from "../../../components/common";
 import { ProgressInput, StatusInput } from "../Shared";
 import { intialTaskValues, validateSchema } from "./shared";
+import { UserPicker } from "../../user";
 
 type BodyUpsertTaskProps = {
   onRefreshList: () => void;
@@ -64,10 +65,10 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
               <Input label="Due Date" name="dueDate" type="date" />
             </div>
             <div className="col-span-3">
-              <Input label="Assigned To" name="assignedTo" />
+              <UserPicker label="Assigned To" name="assignedTo" />
             </div>
             <div className="col-span-3">
-              <Input label="Assigned By" name="assignedBy" />
+              <UserPicker label="Assigned By" name="assignedBy" />
             </div>
             <div className="col-span-6">
               <Input label="Note" name="note" />

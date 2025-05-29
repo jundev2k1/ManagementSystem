@@ -29,5 +29,14 @@ public sealed class CreateTaskCommandValidator : AbstractValidator<CreateTaskCom
 		RuleFor(t => t.Task.DueDate)
 			.NotEmpty().WithMessage("DueDate is required.")
 			.GreaterThan(t => t.Task.StartDate).WithMessage("DueDate must be greater than Start Date");
+
+		RuleFor(t => t.Task.AssignedBy)
+			.Must(id => id == null || id != Guid.Empty).WithMessage("AssignedBy cannot be empty if provided.");
+
+		RuleFor(t => t.Task.AssignedTo)
+			.Must(id => id == null || id != Guid.Empty).WithMessage("AssignedTo cannot be empty if provided.");
+
+		RuleFor(t => t.Task.Note).MaximumLength(4000)
+			.WithMessage("Note cannot exceed 4000 characters.");
 	}
 }

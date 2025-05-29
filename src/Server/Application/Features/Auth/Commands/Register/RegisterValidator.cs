@@ -22,15 +22,15 @@ public sealed class RegisterValidator : AbstractValidator<RegisterCommand>
 
 		RuleFor(x => x.UserInput.FirstName)
 			.NotEmpty().WithMessage("First name is required.")
-			.MaximumLength(50).WithMessage("First name cannot exceed 50 characters.");
+			.MaximumLength(60).WithMessage("First name cannot exceed 60 characters.");
 
 		RuleFor(x => x.UserInput.LastName)
 			.NotEmpty().WithMessage("Last name is required.")
-			.MaximumLength(50).WithMessage("Last name cannot exceed 50 characters.");
+			.MaximumLength(60).WithMessage("Last name cannot exceed 60 characters.");
 
 		RuleFor(x => x.UserInput.PhoneNumber)
 			.NotEmpty().WithMessage("Phone number is required.")
-			.MaximumLength(15).WithMessage("Phone number cannot exceed 15 characters.")
+			.MaximumLength(20).WithMessage("Phone number cannot exceed 20 characters.")
 			.Matches(@"^\+?[0-9]\d{1,14}$").WithMessage("Invalid phone number format.");
 
 		RuleFor(x => x.UserInput.Address)

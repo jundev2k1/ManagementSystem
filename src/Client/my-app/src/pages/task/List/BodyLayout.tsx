@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import type { TaskModel } from "../../../api/services/task";
+import type { TaskModel } from "../../../api/services";
 import { formatDate } from "../../../common/utils/datetime";
 import {
   Button,

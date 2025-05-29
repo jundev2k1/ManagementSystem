@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2025 - Jun Dev. All rights reserved
 
+using Application.Common.Abstractions.Pagination;
 using Application.Common.Interfaces.Repositories;
 using Infrastructure.Data;
 
@@ -7,6 +8,31 @@ namespace Infrastructure.Repositories;
 
 public sealed class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 {
+	public async Task<PaginationResult<User>> GetTasksByCriteriaAsync(
+		Func<IQueryable<User>, IQueryable<User>>? queryBuilder = null,
+		int page = 1,
+		int pageSize = 20,
+		CancellationToken cancellationToken = default)
+	{
+		var query = dbContext.Users.AsQueryable();
+
+		if (queryBuilder is not null)
+			query = queryBuilder(query);
+
+		var totalCount = await query.CountAsync(cancellationToken);
+		var items = await query
+			.Skip((page - 1) * pageSize)
+			.Take(pageSize)
+			.ToListAsync(cancellationToken);
+
+		return new PaginationResult<User>(
+			items: items,
+			totalItems: totalCount,
+			totalPages: (int)Math.Ceiling((decimal)totalCount / pageSize),
+			pageIndex: page,
+			pageSize: pageSize);
+	}
+
 	public async Task<User?> GetUserByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var targetTask = await dbContext.Users
@@ -43,7 +69,7 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 		return user.UserId;
 	}
 
-	public async Task UpdateTaskAsync(User user, CancellationToken cancellationToken = default)
+	public async Task UpdateUserAsync(User user, CancellationToken cancellationToken = default)
 	{
 		var targetUser = await dbContext.Users
 			.FirstOrDefaultAsync(u => u.UserId == user.UserId, cancellationToken);
@@ -62,7 +88,7 @@ public sealed class UserRepository(ApplicationDbContext dbContext) : IUserReposi
 		targetUser.LastModifiedBy = user.LastModifiedBy;
 	}
 
-	public async Task DeleteTaskAsync(Guid id, CancellationToken cancellationToken = default)
+	public async Task DeleteUserAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var targetUser = await dbContext.Users.AsNoTracking()
 			.FirstOrDefaultAsync(u => u.UserId == id, cancellationToken);

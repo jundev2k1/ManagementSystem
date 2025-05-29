@@ -13,7 +13,7 @@ public sealed class UpdateTask : ICarterModule
 			[FromRoute] Guid taskId,
 			TaskInfoRequestDto request,
 			[FromServices] ISender sender,
-			[FromServices] ILogger<CreateTask> logger,
+			[FromServices] ILogger<UpdateTask> logger,
 			CancellationToken cancellationToken) =>
 		{
 			if (request.TaskId != taskId)
@@ -24,7 +24,6 @@ public sealed class UpdateTask : ICarterModule
 
 			var command = new UpdateTaskCommand(request.Adapt<TaskInfo>());
 			var result = await sender.Send(command, cancellationToken);
-			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
 		}).RequireAuthorization();

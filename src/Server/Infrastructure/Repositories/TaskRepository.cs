@@ -32,6 +32,7 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskReposi
 			pageIndex: page,
 			pageSize: pageSize);
 	}
+
 	public async Task<TaskInfo?> GetTaskByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var targetTask = await dbContext.Tasks
@@ -39,7 +40,6 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskReposi
 			.FirstOrDefaultAsync(t => t.TaskId == id, cancellationToken);
 		return targetTask;
 	}
-
 
 	public async Task<Guid> CreateNewTaskAsync(TaskInfo task, CancellationToken cancellationToken = default)
 	{

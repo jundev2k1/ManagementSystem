@@ -17,24 +17,13 @@ public sealed class CreateTaskHandler : ICommandHandler<CreateTaskCommand, Guid>
 
 	public async Task<Guid> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
 	{
-		var task = new TaskInfo
-		{
-			TaskId = Guid.NewGuid(),
-			Title =  request.Task.Title,
-			Description = request.Task.Description,
-			Status = request.Task.Status,
-			Progress = request.Task.Progress,
-			StartDate = request.Task.StartDate,
-			DueDate = request.Task.DueDate,
-			Priority = request.Task.Priority,
-			AssignedTo = request.Task.AssignedTo,
-			AssignedBy = request.Task.AssignedBy,
-			Note = request.Task.Note,
-			CreatedAt = DateTime.UtcNow,
-			CreatedBy = _currentUser.UserId.ToString(),
-			LastModifiedAt = DateTime.UtcNow,
-			LastModifiedBy = _currentUser.UserId.ToString()
-		};
+		var task = request.Task.Adapt<TaskInfo>();
+		task.TaskId = Guid.NewGuid();
+		task.CreatedAt = DateTime.UtcNow;
+		task.CreatedBy = _currentUser.UserId.ToString();
+		task.LastModifiedAt = DateTime.UtcNow;
+		task.LastModifiedBy = _currentUser.UserId.ToString();
+
 		var taskId = await _unitOfWork.Tasks.CreateNewTaskAsync(task, cancellationToken);
 		await _unitOfWork.SaveAsync(cancellationToken);
 

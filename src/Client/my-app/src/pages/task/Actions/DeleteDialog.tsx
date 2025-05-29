@@ -1,7 +1,7 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import { useState } from "react";
-import { taskApi } from "../../../api/services/task";
+import { taskApi } from "../../../api/services";
 import { Button, toast } from "../../../components/common";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 

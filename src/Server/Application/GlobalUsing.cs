@@ -4,6 +4,7 @@ global using Application.Common.Abstractions.CQRS;
 global using Application.Common.Exceptions;
 global using Application.Data;
 global using Domain.Models;
+global using Mapster;
 global using MediatR;
 global using Shared.Constants;
 global using Shared.Helper;

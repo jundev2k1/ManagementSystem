@@ -19,9 +19,10 @@ public sealed class CreateTask : ICarterModule
 		{
 			var command = new CreateTaskCommand(request.Adapt<TaskInfo>());
 			var result = await sender.Send(command, cancellationToken);
-			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
+			var response = ApiResponse<CreateTaskResult>.Ok(new CreateTaskResult(result));
+			logger.LogInformation("Response: " + JsonSerializer.Serialize(response));
 
-			return ApiResponse<CreateTaskResult>.Ok(new CreateTaskResult(result));
+			return response;
 		}).RequireAuthorization();
 	}
 }

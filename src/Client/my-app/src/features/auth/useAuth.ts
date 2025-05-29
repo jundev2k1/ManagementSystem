@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../../store/store';
 import type { SignUpFormInput } from '../../components/form/SignUpForm/signUpForm.logic';
-import { authApi, type RegisterRequest } from '../../api/services/auth';
+import { authApi, type RegisterRequest } from '../../api/services';
 import { logout, setCredentials } from './authSlice';
 import { clearToken, setToken } from '../../api/client/tokenUtils';
 import type { LoginInputRequest } from './types';

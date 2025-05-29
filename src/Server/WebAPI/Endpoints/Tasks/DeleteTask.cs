@@ -11,11 +11,9 @@ public sealed class DeleteTask : ICarterModule
 		app.MapDelete("/tasks/{taskId:guid}", async (
 			[FromRoute] Guid taskId,
 			[FromServices] ISender sender,
-			[FromServices] ILogger<CreateTask> logger,
 			CancellationToken cancellationToken) =>
 		{
 			var result = await sender.Send(new DeleteTaskCommand(taskId), cancellationToken);
-			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
 
 			return ApiResponse<object?>.Ok();
 		}).RequireAuthorization();

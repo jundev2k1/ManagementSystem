@@ -8,7 +8,7 @@ import { TaskLayout } from "./pages/task";
 import { setCredentials, useAuth } from "./features";
 import AuthPage from "./pages/auth/AuthPage";
 import { Toaster } from "./components/common";
-import { authApi } from "./api/services/auth";
+import { authApi } from "./api/services";
 import { setToken } from "./api/client/tokenUtils";
 
 function App() {

@@ -25,9 +25,10 @@ public sealed class GetTaskByCriteria : ICarterModule
 				PageSize: parameters.PageSize);
 
 			var result = await sender.Send(query, cancellationToken);
-			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
+			var response = ApiResponse<PaginationResult<TaskInfo>>.Ok(result);
+			logger.LogInformation("Response: " + JsonSerializer.Serialize(response));
 
-			return ApiResponse<PaginationResult<TaskInfo>>.Ok(result);
+			return response;
 		}).RequireAuthorization();
 	}
 }

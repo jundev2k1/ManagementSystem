@@ -1,8 +1,9 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
-import { type TaskModel } from "../../../api/services/task";
+import { type TaskModel } from "../../../api/services";
 import { formatDate } from "../../../common/utils/datetime";
 import { Label } from "../../../components/common";
+import { UserBadge } from "../../user";
 import { StatusBadge as TaskStatusBadge } from "../Shared";
 
 type BodyDetailTaskProps = {
@@ -23,7 +24,7 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
   } = data;
   return (
     <div className="mx-auto px-4 max-h-[75vh] overflow-y-auto">
-      <div className="grid grid-cols-6 gap-2">
+      <div className="grid grid-cols-6 gap-3">
         <div className="col-span-6">
           <Label>Title</Label>
           <p>{title}</p>
@@ -55,8 +56,7 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
           <p>{assignedTo}</p>
         </div>
         <div className="col-span-3">
-          <Label>Assigned By</Label>
-          <p>{assignedBy}</p>
+          <p><UserBadge label="Assigned By" value={assignedBy} /></p>
         </div>
         <div className="col-span-6">
           <Label>Note</Label>

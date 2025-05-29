@@ -15,9 +15,10 @@ public sealed class GetTaskById : ICarterModule
 			CancellationToken cancellationToken) =>
 		{
 			var result = await sender.Send(new GetTaskByIdQuery(taskId), cancellationToken);
-			logger.LogInformation("Response: " + JsonSerializer.Serialize(result));
+			var response = ApiResponse<TaskInfo>.Ok(result);
+			logger.LogInformation("Response: " + JsonSerializer.Serialize(response));
 
-			return ApiResponse<TaskInfo>.Ok(result);
+			return response;
 		}).RequireAuthorization();
 	}
 }

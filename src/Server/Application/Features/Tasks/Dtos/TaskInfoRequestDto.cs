@@ -6,7 +6,7 @@ namespace Application.Features.Tasks.Dtos;
 
 public sealed class TaskInfoRequestDto
 {
-	public Guid? TaskId { get; set; }
+	public Guid TaskId { get; set; } = Guid.Empty;
 	public string Title { get; set; } = string.Empty;
 	public string Description { get; set; } = string.Empty;
 	public TaskStatusEnum Status { get; set; } = TaskStatusEnum.New;

@@ -1,7 +1,7 @@
 // Copyright (c) 2025 - Jun Dev. All rights reserved
 
 import * as Yup from "yup";
-import type { TaskModel } from "../../../api/services/task";
+import type { TaskModel } from "../../../api/services";
 import { formatDate, getToday, getTomorrow } from "../../../common/utils/datetime";
 
 export const intialTaskValues: TaskModel = {
@@ -51,5 +51,5 @@ export const validateSchema = Yup.object({
     .max(4, "Priority cannot be greater than 4"),
   assignedTo: Yup.string().required("Assigned To is required"),
   assignedBy: Yup.string().required("Assigned By is required"),
-  note: Yup.string().max(500, "Note must be at most 500 characters"),
+  note: Yup.string().max(4000, "Note must be at most 4000 characters"),
 });

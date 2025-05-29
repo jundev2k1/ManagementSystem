@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { taskApi, type TaskModel } from "../../../api/services/task";
+import { taskApi, type TaskModel } from "../../../api/services";
 import { initSearchResult } from "../../../common/data";
 import type { FilterItem, SearchResult, SortItem } from "../../../common/types";
 import type { FilterOptions } from "../../../components/form/FilterForm/types";
