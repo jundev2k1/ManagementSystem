@@ -12,7 +12,8 @@ public sealed class CreateTaskCommandValidator : AbstractValidator<CreateTaskCom
 			.NotEmpty().WithMessage("Title is required.");
 
 		RuleFor(t => t.Task.Description)
-			.NotEmpty().WithMessage("Description is required.");
+			.NotEmpty().WithMessage("Description is required.")
+			.MaximumLength(4000).WithMessage("Description cannot exceed 4000 characters.");
 
 		RuleFor(t => t.Task.Status)
 			.IsInEnum().WithMessage("Invalid status.");
@@ -23,12 +24,11 @@ public sealed class CreateTaskCommandValidator : AbstractValidator<CreateTaskCom
 		RuleFor(t => t.Task.Priority)
 			.IsInEnum().WithMessage("Invalid priority.");
 
-		RuleFor(t => t.Task.StartDate)
-			.NotEmpty().WithMessage("StartDate is required.");
-
 		RuleFor(t => t.Task.DueDate)
-			.NotEmpty().WithMessage("DueDate is required.")
-			.GreaterThan(t => t.Task.StartDate).WithMessage("DueDate must be greater than Start Date");
+			.GreaterThan(t => t.Task.StartDate).WithMessage("DueDate must be greater than StartDate");
+
+		RuleFor(t => t.Task.ActualEndDate)
+			.GreaterThan(t => t.Task.ActualStartDate).WithMessage("ActualEndDate must be greater than ActualStartDate");
 
 		RuleFor(t => t.Task.AssignedBy)
 			.Must(id => id == null || id != Guid.Empty).WithMessage("AssignedBy cannot be empty if provided.");
@@ -36,7 +36,7 @@ public sealed class CreateTaskCommandValidator : AbstractValidator<CreateTaskCom
 		RuleFor(t => t.Task.AssignedTo)
 			.Must(id => id == null || id != Guid.Empty).WithMessage("AssignedTo cannot be empty if provided.");
 
-		RuleFor(t => t.Task.Note).MaximumLength(4000)
-			.WithMessage("Note cannot exceed 4000 characters.");
+		RuleFor(t => t.Task.Note)
+			.MaximumLength(4000).WithMessage("Note cannot exceed 4000 characters.");
 	}
 }

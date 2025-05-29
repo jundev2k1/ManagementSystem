@@ -60,6 +60,8 @@ public sealed class TaskRepository(ApplicationDbContext dbContext) : ITaskReposi
 		targetTask.Progress = task.Progress;
 		targetTask.StartDate = task.StartDate;
 		targetTask.DueDate = task.DueDate;
+		targetTask.ActualStartDate = task.ActualStartDate;
+		targetTask.ActualEndDate = task.ActualEndDate;
 		targetTask.Priority = task.Priority;
 		targetTask.AssignedTo = task.AssignedTo;
 		targetTask.AssignedBy = task.AssignedBy;

@@ -26,6 +26,7 @@ const UserBadge = ({ label = "", value = "" }: UserBadgeProps) => {
   return (
     <>
       {label && <Label>{label}</Label>}
+      {loading && <Spinner />}
       {!loading && selectedUser
         ? (
           <div className="flex items-center space-x-3 p-2 rounded-md">
@@ -33,7 +34,7 @@ const UserBadge = ({ label = "", value = "" }: UserBadgeProps) => {
             <span className="font-medium">{selectedUser.fullName}</span>
           </div>
         )
-        : <Spinner />}
+        : <p className="text-gray-400">Not set</p>}
     </>
   );
 };

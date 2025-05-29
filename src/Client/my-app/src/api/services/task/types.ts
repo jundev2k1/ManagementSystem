@@ -8,10 +8,12 @@ export interface TaskModel extends Entity {
   description: string;
   status: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
   progress: number;
-  startDate: string;
-  dueDate: string;
+  startDate: string | null | undefined;
+  dueDate: string | null | undefined;
+  actualStartDate: string | null | undefined;
+  actualEndDate: string | null | undefined;
   priority: 0 | 1 | 2 | 3 | 4;
-  assignedTo: string;
-  assignedBy: string;
+  assignedTo: string | undefined;
+  assignedBy: string | undefined;
   note?: string;
 }

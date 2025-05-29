@@ -14,6 +14,8 @@ public sealed class TaskInfo : Entity
 	public int Progress { get; set; }
 	public DateTime? StartDate { get; set; }
 	public DateTime? DueDate { get; set; }
+	public DateTime? ActualStartDate { get; set; }
+	public DateTime? ActualEndDate { get; set; }
 	public TaskPriorityEnum Priority { get; set; } = TaskPriorityEnum.None;
 	public Guid? AssignedTo { get; set; }
 	public Guid? AssignedBy { get; set; }

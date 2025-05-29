@@ -40,6 +40,10 @@ public sealed class TaskConfiguration : IEntityTypeConfiguration<TaskInfo>
 			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
 		builder.Property(t => t.DueDate)
 			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
+		builder.Property(t => t.ActualStartDate)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
+		builder.Property(t => t.ActualEndDate)
+			.HasConversion(v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v, v => v);
 		builder.Property(t => t.Priority)
 			.IsRequired()
 			.HasConversion<int>()

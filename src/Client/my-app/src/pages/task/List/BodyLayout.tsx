@@ -20,10 +20,10 @@ import {
   TableRow,
 } from "../../../components/common";
 import { FilterForm, SortForm } from "../../../components/form";
-import { StatusBadge as TaskStatusBadge } from "../Shared";
 import { BodyUpsertTask, DeleteDialog } from "../Actions";
 import BodyDetailTask from "../Actions/BodyDetailTask";
 import ModalLayout from "../Modal/ModalLayout";
+import { StatusBadge as TaskStatusBadge } from "../Shared";
 import BodyFilter from "./FilterActionGroup";
 import { filterSettings, getModalName, sortSettings, TaskPage, useTaskList } from "./useTaskList";
 
@@ -107,15 +107,30 @@ const BodyLayout = () => {
                   </TableRow>
                 )
                 : (
-                  data.items.map(({ taskId, title, description, startDate, dueDate, progress, status }, index) => (
+                  data.items.map((
+                    {
+                      taskId,
+                      title,
+                      description,
+                      startDate,
+                      dueDate,
+                      actualStartDate,
+                      actualEndDate,
+                      progress,
+                      status,
+                    },
+                    index,
+                  ) => (
                     <TableRow key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                       <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                         <h3>{title}</h3>
                         <p>{description}</p>
                       </TableCell>
                       <TableCell className="w-[20%]">
-                        <p>Start date: {formatDate(startDate)}</p>
-                        <p>Start date: {formatDate(dueDate)}</p>
+                        <p>Start date: {startDate ? formatDate(startDate) : "Not set"}</p>
+                        <p>Due date: {dueDate ? formatDate(dueDate) : "Not set"}</p>
+                        <p>Actual start date: {actualStartDate ? formatDate(actualStartDate) : "Not set"}</p>
+                        <p>Actual end date: {actualEndDate ? formatDate(actualEndDate) : "Not set"}</p>
                         <Progress className="mt-2" color="indigo" progress={progress} size="lg" labelProgress />
                       </TableCell>
                       <TableCell className="text-center">

@@ -18,13 +18,15 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
     status,
     startDate,
     dueDate,
+    actualStartDate,
+    actualEndDate,
     assignedTo,
     assignedBy,
     note,
   } = data;
   return (
     <div className="mx-auto px-4 max-h-[75vh] overflow-y-auto">
-      <div className="grid grid-cols-6 gap-3">
+      <div className="grid grid-cols-6 gap-4">
         <div className="col-span-6">
           <Label>Title</Label>
           <p>{title}</p>
@@ -35,7 +37,7 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
         </div>
         <div className="col-span-3">
           <Label>Progress</Label>
-          <p>{progress}</p>
+          <p>{progress}%</p>
         </div>
         <div className="col-span-3">
           <Label>Status</Label>
@@ -45,22 +47,41 @@ const BodyDetailTask = ({ data }: BodyDetailTaskProps) => {
         </div>
         <div className="col-span-3">
           <Label>Start Date</Label>
-          <p>{formatDate(startDate)}</p>
+          <p className={!startDate ? "text-gray-400" : undefined}>
+            {startDate ? formatDate(startDate) : "Not set"}
+          </p>
         </div>
         <div className="col-span-3">
           <Label>Due Date</Label>
-          <p>{formatDate(dueDate)}</p>
+          <p className={!dueDate ? "text-gray-400" : undefined}>
+            {dueDate ? formatDate(dueDate) : "Not set"}
+          </p>
         </div>
         <div className="col-span-3">
-          <Label>Assigned To</Label>
-          <p>{assignedTo}</p>
+          <Label>Actual Start Date</Label>
+          <p className={!actualStartDate ? "text-gray-400" : undefined}>
+            {actualStartDate ? formatDate(actualStartDate) : "Not set"}
+          </p>
         </div>
         <div className="col-span-3">
-          <p><UserBadge label="Assigned By" value={assignedBy} /></p>
+          <Label>Actual End Date</Label>
+          <p className={!actualEndDate ? "text-gray-400" : undefined}>
+            {actualEndDate ? formatDate(actualEndDate) : "Not set"}
+          </p>
+        </div>
+        <div className="col-span-3">
+          <p>
+            <UserBadge label="Assigned By" value={assignedBy || ''} />
+          </p>
+        </div>
+        <div className="col-span-3">
+          <p>
+            <UserBadge label="Assigned To" value={assignedTo || ''} />
+          </p>
         </div>
         <div className="col-span-6">
           <Label>Note</Label>
-          <p>{note}</p>
+          <p className={!note ? "text-gray-400" : undefined}>{note || "No notes"}</p>
         </div>
       </div>
     </div>

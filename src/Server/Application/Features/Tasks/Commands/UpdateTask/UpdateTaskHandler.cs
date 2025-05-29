@@ -17,6 +17,7 @@ public sealed class UpdateTaskHandler : ICommandHandler<UpdateTaskCommand>
 
 	public async Task<Unit> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
 	{
+		request.Task.LastModifiedAt = DateTime.UtcNow;
 		request.Task.LastModifiedBy = _currentUser.UserId.ToString();
 		await _unitOfWork.Tasks.UpdateTaskAsync(request.Task, cancellationToken);
 		await _unitOfWork.SaveAsync(cancellationToken);
