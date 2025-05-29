@@ -24,7 +24,7 @@ const BodyUpsertTask = ({ onRefreshList, onClose, data, isCreate = false }: Body
   const onSubmit = async (values: TaskModel) => {
     const taskStatus = Number(`${values.status}`) as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
     const response = isCreate
-      ? await taskApi.create({ ...values, taskId: null, status: taskStatus })
+      ? await taskApi.create({ ...values, taskId: undefined, status: taskStatus })
       : await taskApi.update({ ...values, status: taskStatus });
 
     if (!response.isSuccess) {

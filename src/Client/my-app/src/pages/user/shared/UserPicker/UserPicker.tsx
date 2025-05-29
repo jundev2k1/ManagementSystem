@@ -12,12 +12,13 @@ type UserPickerProps = {
 };
 
 const UserPicker = ({ name, label = "" }: UserPickerProps) => {
-  const [field] = useField<string>(name);
+  const [field, meta] = useField<string>(name);
   const { setFieldValue } = useFormikContext();
   const [selectedUser, setSelectedUser] = useState<UserModel | null>(null);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<UserModel[]>([]);
   const [loading, setLoading] = useState(false);
+  const showError = meta.touched && meta.error;
 
   // Init fetch user
   useEffect(() => {
@@ -55,6 +56,13 @@ const UserPicker = ({ name, label = "" }: UserPickerProps) => {
     setFieldValue(name, "");
   };
 
+  const handleCloseSuggestion = () => {
+    const timeout = setTimeout(() => {
+      setSuggestions([]);
+      clearTimeout(timeout);
+    }, 300);
+  }
+
   return (
     <div className="relative">
       {label && <Label>{label}</Label>}
@@ -74,6 +82,7 @@ const UserPicker = ({ name, label = "" }: UserPickerProps) => {
               placeholder="Search user..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onBlur={handleCloseSuggestion}
               disabled={loading}
             />
             {loading && (
@@ -96,6 +105,9 @@ const UserPicker = ({ name, label = "" }: UserPickerProps) => {
                   </li>
                 ))}
               </ul>
+            )}
+            {showError && (
+              <p className="mt-1 text-sm text-red-600">{meta.error}</p>
             )}
           </div>
         )}

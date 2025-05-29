@@ -3,7 +3,7 @@
 import type { Entity } from "../../../common/types";
 
 export interface TaskModel extends Entity {
-  taskId: string | null;
+  taskId: string | undefined;
   title: string;
   description: string;
   status: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
