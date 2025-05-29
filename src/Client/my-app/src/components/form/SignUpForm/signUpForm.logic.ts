@@ -6,6 +6,7 @@ export const validationSchema = Yup.object({
   username: Yup.string().min(6, "Minimum 6 characters").required("Required"),
   email: Yup.string().email("Invalid email format").required("Required"),
   password: Yup.string().min(8, "Minimum 8 characters").required("Required"),
+  confirmPassword: Yup.string().min(8, "Minimum 8 characters").required("Required").oneOf([Yup.ref('password')], 'Passwords must match'),
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   phoneNumber: Yup.string().matches(/^\+?[0-9]\d{1,14}$/, "Invalid phone number format").required("Required"),

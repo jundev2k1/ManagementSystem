@@ -27,6 +27,9 @@ const SignUpForm = ({ onSubmit }: SignUpFormParam) => (
             <Input label="Password" name="password" type="password" />
           </div>
           <div className="col-span-2">
+            <Input label="Confirm Password" name="confirmPassword" type="password" />
+          </div>
+          <div className="col-span-2">
             <Input label="Email" name="email" />
           </div>
           <div>
